@@ -1,0 +1,14 @@
+﻿@model Car
+
+<div class="row">
+    <div class="col-6 card">
+        <img class="card-img-top" src="~/@Model.Link" />
+        <div class="card-body">
+            @Model.Name <br />
+            @Model.Description <br />
+            @Model.Cost <br />
+            <a class="btn btn-dark" href="/">Продолжить покупки</a>
+            <a class="btn btn-dark" href="/Card/Add?carId=@Model.Id">Добавить в корзину</a>
+        </div>
+    </div>
+</div>

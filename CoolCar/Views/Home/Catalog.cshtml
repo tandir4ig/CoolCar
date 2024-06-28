@@ -1,0 +1,16 @@
+﻿@model List<Car>;
+
+
+    <div class="row">
+        <br />
+        @foreach (var product in Model){
+
+            <div class="col-3 card">
+            <img  class="card-img-top" src="~/@product.Link" />
+            <a style="color:dimgrey; font-size:2.5em" href="home/car/@product.Id">@product.Name</a>
+                <p><br/>@product.Description</p>
+                <p>@product.Cost</p>
+            <a class="btn btn-dark" href="Card/Add?carId=@product.Id" role="button">Добавить в корзину</a><br />
+        </div>         
+        } 
+    </div>
