@@ -1,17 +1,18 @@
 ﻿using CoolCar.Models;
+using CoolCar.Services.Interfaces;
 
-namespace CoolCar
+namespace CoolCar.Services
 {
-    public static class CardsDatabase
+    public class CardsDatabase : ICardsStorage
     {
-        private static List<Card> cards = new List<Card>();
+        private  List<Card> cards = new List<Card>();
 
-        public static Card TryGetByUserId(string userId)
+        public Card TryGetByUserId(string userId)
         {
             return cards.FirstOrDefault(x => x.UserId == userId);
         }
 
-        public static void Add(Car car, string userId)
+        public void Add(Car car, string userId)
         {
             Card existingCard = TryGetByUserId(userId);
 

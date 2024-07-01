@@ -1,5 +1,5 @@
+using CoolCar.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace CoolCar.Controllers
 {
@@ -16,6 +16,5 @@ namespace CoolCar.Controllers
             var car = _carsDatabase.GetById(id);
             return View(car);
         }
-        
     }
 }

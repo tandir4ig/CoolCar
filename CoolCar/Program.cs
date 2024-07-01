@@ -1,3 +1,6 @@
+using CoolCar.Services;
+using CoolCar.Services.Interfaces;
+
 namespace CoolCar
 {
     public class Program
@@ -8,6 +11,9 @@ namespace CoolCar
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<ICardsStorage, CardsDatabase>();
+            builder.Services.AddSingleton<ICarsStorage, CarsDatabase>();
+            builder.Services.AddSingleton<IConstants, Constants>();
 
             var app = builder.Build();
 
@@ -19,7 +25,7 @@ namespace CoolCar
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            app.UseHttpsRedirection();   
             app.UseStaticFiles();
 
             app.UseRouting();

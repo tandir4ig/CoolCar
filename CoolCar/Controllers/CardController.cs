@@ -1,23 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CoolCar.Services;
+using CoolCar.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CoolCar.Controllers
 {
     public class CardController : Controller
     {
-        private readonly CarsDatabase _database;
-        public CardController()
+        private readonly ICarsStorage _database;
+        private readonly ICardsStorage _cardsDatabase;
+        private readonly IConstants _constants;
+        public CardController(ICardsStorage cardsDatabase, IConstants constants, ICarsStorage carsDatabase)
         {
-            _database = new CarsDatabase();
+            _database = carsDatabase;
+            _cardsDatabase = cardsDatabase;
+            _constants = constants;
         }
         public IActionResult Index()
         {
-            var card = CardsDatabase.TryGetByUserId(Constants.UserId); 
+            var card = _cardsDatabase.TryGetByUserId(_constants.UserId); 
             return View((object)card);
         }
         public IActionResult Add(int carId)
         {
             var car = _database.GetById(carId);
-            CardsDatabase.Add(car, Constants.UserId);
+            _cardsDatabase.Add(car, _constants.UserId);
             return RedirectToAction("Index");
         }
     }

@@ -1,8 +1,9 @@
 ﻿using CoolCar.Models;
+using CoolCar.Services.Interfaces;
 
-namespace CoolCar
+namespace CoolCar.Services
 {
-    public class CarsDatabase
+    public class CarsDatabase : ICarsStorage
     {
         public static List<Car> cars = new List<Car>()
         {
