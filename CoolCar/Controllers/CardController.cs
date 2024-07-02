@@ -9,11 +9,13 @@ namespace CoolCar.Controllers
         private readonly ICarsStorage _database;
         private readonly ICardsStorage _cardsDatabase;
         private readonly IConstants _constants;
+        
         public CardController(ICardsStorage cardsDatabase, IConstants constants, ICarsStorage carsDatabase)
         {
             _database = carsDatabase;
             _cardsDatabase = cardsDatabase;
             _constants = constants;
+            
         }
         public IActionResult Index()
         {
@@ -24,6 +26,17 @@ namespace CoolCar.Controllers
         {
             var car = _database.GetById(carId);
             _cardsDatabase.Add(car, _constants.UserId);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Delete(int carId)
+        {
+            var tempCar = _database.GetById(carId);
+            _cardsDatabase.Remove(tempCar, _constants.UserId);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Clear()
+        {
+            _cardsDatabase.Clear(_constants.UserId);
             return RedirectToAction("Index");
         }
     }

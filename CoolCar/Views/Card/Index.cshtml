@@ -15,6 +15,7 @@ else
                         <th>Цена</th>
                         <th>Количество</th>
                         <th>Стоимость</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,11 @@ else
                             <td>@item.car.Cost</td>
                             <td>@item.Amount</td>
                             <td>@item.Cost</td>
+                            <td><div class="text-center">
+                                @item.Amount
+                                    <a type="button" class="btn btn-dark" href="/Card/Add?carId=@item.car.Id">+</a>
+                                    <a type="button" class="btn btn-dark" href="/Card/Delete?carId=@item.car.Id">-</a>
+                            </div></td>
                         </tr>
                     }
                 </tbody>
@@ -35,8 +41,10 @@ else
             </div>
             <div class="text-center">
                 <a class="btn btn-dark" href="/Home/Catalog" role="button">Продолжить покупки</a>
-                <a class="btn btn-dark"  href="#" role="button">Оформить заказ</a>
+                <a class="btn btn-dark"  href="/Order/index" role="button">Оформить заказ</a>
+                <a class="btn btn-dark" href="/Card/Clear" role="button">Очистить корзину</a>
             </div>
+
         </div>
     </div>
 }

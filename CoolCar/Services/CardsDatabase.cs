@@ -50,5 +50,27 @@ namespace CoolCar.Services
             }
 
         }
+
+        public void Remove(Car car, string userId)
+        {
+            Card UserCard = TryGetByUserId(userId);
+
+            CardItem? CardItem = UserCard.Cars.FirstOrDefault(x => x.car.Id == car.Id);
+
+            if (CardItem.Amount > 1)
+            {
+                CardItem.Amount--;
+            }
+            else
+            {
+                UserCard.Cars.Remove(CardItem);
+            }
+        }
+
+        public void Clear(string userId)
+        {
+            var userCard = TryGetByUserId(userId);
+            cards.Remove(userCard);
+        }
     }
 }

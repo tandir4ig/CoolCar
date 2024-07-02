@@ -2,6 +2,7 @@
 {
     public class Card
     {
+
         public Guid Id { get; set; }
         public List<CardItem> Cars { get; set; }
         public string UserId {  get; set; }

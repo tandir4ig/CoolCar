@@ -1,0 +1,65 @@
+﻿@model Card
+
+<div class="row">
+
+    @* Форма заказа *@
+
+    <div class="col-5 card">
+        <h4>Ваш заказ</h4>
+        <table class="table" style="font-size:12px">
+            <thead>
+                <tr>
+                    <th style="font-size:12px">Название</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Стоимость</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var carList in Model.Cars)
+                {
+                    <tr>
+                        <th>@carList.car.Name</th>
+                        <th>@carList.car.Cost</th>
+                        <th>@carList.Amount</th>
+                        <th>@carList.Cost</th>
+                    </tr>    
+                }
+            </tbody>
+        </table>
+        <div class="text-end">
+            <h6>Итого: @Model.TotalSum</h6>
+        </div>
+    </div>
+    <div class="col-1"></div>
+
+    @* Форма данных покупателя *@
+    <div class="col-6">
+        <form>
+            <div class="form-group" style="margin:10px">
+                <label for="exampleFormControlInput1">ФИО*</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Фисенко Кирилл Андреевич">
+            </div>
+            <div class="form-group" style="margin:10px">
+                <label for="exampleFormControlInput2">Email*</label>
+                <input type="email" class="form-control" id="exampleFormControlInput2" placeholder="name@example.com">
+            </div>
+            <div class="form-group" style="margin:10px">
+                <label for="exampleFormControlInput3">Телефон*</label>
+                <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="+7 (926) 546-34-69">
+            </div>   
+            <div class="form-group" style="margin:10px">
+                <label for="exampleFormControlInput4">Адрес*</label>
+                <input type="email" class="form-control" id="exampleFormControlInput4" placeholder="г. Москва, ул. Тверская, д. 1">
+            </div>
+            <div class="form-group" style="margin:10px">
+                <label for="exampleFormControlTextarea1">Комментарии к заказу</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="text-center" style="margin:30px">
+        <a class="btn btn-outline-secondary btn-lg" href="/home/Catalog" role="button">Продолжить покупки</a>
+        <a class="btn btn-outline-success btn-lg" href="/order/makeOrder" role="button">Оформить заказ</a>
+    </div>
+</div>
