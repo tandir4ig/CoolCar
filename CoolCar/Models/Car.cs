@@ -11,6 +11,11 @@ namespace CoolCar.Models
         public int Cost { get; set; }
         public string Link { get; set; }
 
+        //Спецификация
+        public int hp {  get; set; }
+        public int weight {  get; set; }
+        public int maxSpeed {  get; set; }
+        //Спецификация
         public Car(string name,string desc, int cost, string link)
         {
             this.Id = Counter++;

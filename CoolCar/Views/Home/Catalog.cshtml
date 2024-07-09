@@ -5,12 +5,21 @@
         <br />
         @foreach (var product in Model){
 
-            <div class="col-3 card">
-            <img  class="card-img-top" src="~/@product.Link" />
+            <div class="col-3 card" style="margin: 10px">
+
+            <img  class="card-img-top img-same-size" src="~/@product.Link" />
             <a style="color:dimgrey; font-size:2.5em" href="/home/car/@product.Id">@product.Name</a>
                 <p><br/>@product.Description</p>
                 <p>@product.Cost</p>
-            <a class="btn btn-dark" href="/Card/Add?carId=@product.Id" role="button">Добавить в корзину</a><br />
+            
+            <div class="" style="margin-block-end: 5px">
+                <div class="col">
+                <a class="btn btn-dark bi bi-heart" title="Избранное" asp-area="" asp-controller="liked" asp-action="index"> </a>
+                <a class="btn btn-dark bi bi-clipboard2-plus" title="Сравнение" asp-area="" asp-controller="compare" asp-action="index"> </a>
+                <a class="btn btn-dark" href="/Card/Add?carId=@product.Id" role="button">Добавить в корзину</a>
+                </div>
+            </div>
+            
         </div>         
         } 
     </div>
