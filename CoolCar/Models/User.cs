@@ -3,11 +3,22 @@
     public class User
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public User(string name)
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string CheckBox { get; set; }
+        public bool RememberMe
         {
-            this.Name = name;
-            this.Id = Guid.NewGuid();
+            get
+            {
+                if (CheckBox == "on")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 }

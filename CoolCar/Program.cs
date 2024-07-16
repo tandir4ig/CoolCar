@@ -37,7 +37,7 @@ namespace CoolCar
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Catalog}/{id?}");
+                pattern: "{controller=Authorization}/{action=Index}/{id?}");
 
             app.Run();
         }
