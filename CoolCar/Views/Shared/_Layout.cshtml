@@ -10,22 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Catalog">CoolCar</a>
-                <div>
-                    <a class="navbar-brand bi bi-heart" title="Избранное" asp-area="" asp-controller="liked" asp-action="index"> </a>
-                    <a class="navbar-brand bi bi-clipboard2-plus" title="Сравнение" asp-area="" asp-controller="compare" asp-action="index"> </a>
-                    <a class="navbar-brand bi bi-cart4" title="Корзина" asp-area="" asp-controller="Card" asp-action="Index"> </a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-        </nav>
-    </header>
+    @await Html.PartialAsync("Header")
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

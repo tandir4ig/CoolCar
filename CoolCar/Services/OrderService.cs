@@ -10,5 +10,9 @@ namespace CoolCar.Services
         {
             orders.Add(order);
         }
+        public List<Order> GetOrders()
+        {
+            return orders;  
+        }
     }
 }

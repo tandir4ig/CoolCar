@@ -1,0 +1,19 @@
+﻿@model List<Order>
+
+@foreach(var order in Model)
+{
+    <table class="table">
+        
+        <tbody>
+            <tr>
+                <td>@order.Name</td>
+                <td>@order.Address</td>
+                <td>@order.PhoneNumber</td>
+                <td>@order.Email</td>
+            </tr>    
+
+
+        </tbody>
+
+    </table>
+}

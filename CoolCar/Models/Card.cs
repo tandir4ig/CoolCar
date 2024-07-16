@@ -13,5 +13,12 @@
                 return Cars.Sum(car => car.Cost);
             }
         }
+        public int Amount
+        {
+            get
+            {
+                return Cars?.Sum(car => car.Amount) ?? 0;
+            }
+        }
     }
 }

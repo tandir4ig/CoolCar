@@ -15,6 +15,8 @@ namespace CoolCar
             builder.Services.AddSingleton<ICarsStorage, CarsDatabase>();
             builder.Services.AddSingleton<IConstants, Constants>();
             builder.Services.AddSingleton<IOrdersInterface, OrderService>();
+            builder.Services.AddSingleton<ILikedInterface, LikedService>();
+            builder.Services.AddSingleton<ICompareInterface, CompareServise>();
 
             var app = builder.Build();
 

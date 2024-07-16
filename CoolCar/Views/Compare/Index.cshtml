@@ -1,0 +1,51 @@
+﻿@model List<Car>
+
+@if (Model.Count == 0)
+{
+    <div style="padding-top: 200px; text-align:center">
+        <h2 class="text-center">Страница сравнения - пустая</h2>
+        <br /><br />
+        <a class="btn btn-dark" style="font-size:20px" title="Сравнить" asp-controller="home" asp-action="catalog">Перейти в каталог</a>
+    </div>
+}
+else
+{
+    <h2>Страница сравнения</h2>
+    <br />
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Масса авто</th>
+                        <th>Лошадиных сил</th>
+                        <th>Максимальная скорость</th>
+                        <th>Цена</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var car in Model)
+                    {
+                        <tr>
+                            <td>@car.Name</td>
+                            <td>@car.weight</td>
+                            <td>@car.hp</td>
+                            <td>@car.maxSpeed</td>
+                            <td>@car.Cost</td>
+                            <td class="col-3 text-end">
+                                <a class="btn btn-dark bi bi-cart4" title="Добавить в корзину" asp-area="" asp-controller="Card" asp-action="Add" asp-route-carid="@car.Id"></a>
+                                <a class="btn btn-dark bi bi-trash-fill" title="Удалить из сравнения" asp-controller="Compare" asp-action="remove" asp-route-carid="@car.Id"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center">
+            <a class="btn btn-dark" title="Сравнить" asp-controller="home" asp-action="catalog">Продолжить покупки</a>
+            <a class="btn btn-dark" title="Сравнить" asp-controller="Compare" asp-action="clear">Очистить список</a>
+        </div>
+    </div>
+}
