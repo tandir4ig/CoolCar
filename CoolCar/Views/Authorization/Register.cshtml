@@ -1,5 +1,5 @@
 ﻿<form method="post">
-    <h4>Вход</h4>
+    <h4>Регистрация</h4>
     <br />
     <div class="row mb-3">
         <label for="login" class="col-sm-1 col-form-label">Логин</label>
@@ -14,15 +14,10 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col-sm offset">
-            <div class="form-check">
-                <input name="CheckBox" class="form-check-input" type="checkbox" id="rememberMe">
-                <label class="form-check-label" for="rememberMe">
-                    Запомнить меня?
-                </label>
-            </div>
+        <label for="password" class="col-sm-1 col-form-label">Повторите пароль</label>
+        <div class="col-sm-3">
+            <input name="RepeatPassword" type="password" class="form-control" id="password" placeholder="*********">
         </div>
     </div>
-    <button type="submit" class="btn btn-primary" asp-controller="authorization" asp-action="enter">Войти</button>
-    <button type="submit" class="btn btn-outline-primary" asp-controller="authorization" asp-action="register">Зарегистрироваться</button>
+    <button type="submit" class="btn btn-outline-primary" asp-controller="authorization" asp-action="AddNewUser">Зарегистрироваться</button>
 </form>

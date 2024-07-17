@@ -11,7 +11,15 @@ namespace CoolCar.Controllers
         }
         public IActionResult Enter(User user)
         {
+            return Redirect("/Home/Catalog");
+        }
+        public IActionResult Register()
+        {
             return View();
+        }
+        public IActionResult AddNewUser(User user)
+        {
+            return Redirect("/home/catalog");
         }
     }
 }
