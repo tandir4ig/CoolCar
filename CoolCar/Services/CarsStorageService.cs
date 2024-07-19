@@ -3,7 +3,7 @@ using CoolCar.Services.Interfaces;
 
 namespace CoolCar.Services
 {
-    public class CarsDatabase : ICarsStorage
+    public class CarsStorageService : ICarsStorage
     {
         public static List<Car> cars = new List<Car>()
         {
@@ -21,6 +21,10 @@ namespace CoolCar.Services
         public Car GetById(int id)
         {
             return cars.FirstOrDefault(car => car.Id == id);
+        }
+        public void Delete(Car car)
+        {
+            cars.Remove(car);
         }
     }
 }

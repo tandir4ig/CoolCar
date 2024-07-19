@@ -5,7 +5,7 @@ namespace CoolCar.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly CarsDatabase _carsDatabase = new CarsDatabase();
+        private readonly CarsStorageService _carsDatabase = new CarsStorageService();
         public IActionResult Catalog()
         {
             var Cars = _carsDatabase.GetAll();

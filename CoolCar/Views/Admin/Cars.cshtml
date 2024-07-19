@@ -1,5 +1,37 @@
-﻿@await Html.PartialAsync("AdminMenu")
+﻿@model List<Car>
+@await Html.PartialAsync("AdminMenu")
 
 <div class="text-center">
     <h3>Продукты</h3>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col">
+        
+
+        <table class="table border border-1" @* style="padding-top:10px; margin-top: 10px" *@>
+            <thead>
+                <tr>
+                    <th class="a">#</th>
+                    <th class="a">Название</th>
+                    <th class="a">Цена</th>
+                    <th class="a"><a style="padding:0 0 10px 10px" asp-controller="">Добавить новый продукт</a></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var car in Model)
+            {
+                    <tr>
+                        <td class="ab">@car.Id</td>
+                        <td class="ab"><a style="color: black; text-decoration:none" asp-controller="home" asp-action="car" asp-route-id="@car.Id">@car.Name</a></td>
+                        <td class="ab">@car.Cost</td>
+                        <td class="ab">
+                            <a class="btn bi bi-pencil" asp-controller="admin" asp-action="Edit" asp-route-carid="@car.Id"> Редактировать</a>
+                            <a class="btn bi bi-trash-fill" asp-controller="admin" asp-action="deletecar" asp-route-carid="@car.Id"> Удалить</a>
+                        </td>
+                    </tr>
+            }
+            </tbody>
+        </table>
+    </div>
 </div>

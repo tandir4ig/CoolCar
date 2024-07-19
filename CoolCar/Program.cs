@@ -12,7 +12,7 @@ namespace CoolCar
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<ICardsStorage, CardsDatabase>();
-            builder.Services.AddSingleton<ICarsStorage, CarsDatabase>();
+            builder.Services.AddSingleton<ICarsStorage, CarsStorageService>();
             builder.Services.AddSingleton<IConstants, Constants>();
             builder.Services.AddSingleton<IOrdersInterface, OrderService>();
             builder.Services.AddSingleton<ILikedInterface, LikedService>();
