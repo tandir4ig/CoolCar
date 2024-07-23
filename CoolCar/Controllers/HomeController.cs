@@ -16,5 +16,16 @@ namespace CoolCar.Controllers
             var car = _carsDatabase.GetById(id);
             return View(car);
         }
+        [HttpPost]
+        public IActionResult Search(string name)
+        {
+            if(name != null)
+            {
+                var products = _carsDatabase.GetAll();
+                var needProduct = products.Where(product => product.Name.ToLower().Contains(name.ToLower())).ToList();
+                return View(needProduct);
+            }
+            return RedirectToAction("Catalog");
+        }
     }
 }

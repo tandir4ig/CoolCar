@@ -5,6 +5,12 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Catalog">CoolCar</a>
                 <a class="navbar-brand" style="font-size: 12px" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
             </div>
+            <div class="container-fluid" style="width: 600px">
+                <form class="d-flex" role="search" method="post" style="height:30px">
+                    <input name="name" class="form-control" type="search" placeholder="Поиск" aria-label="Поиск">
+                    <button class="btn btn-dark" style="height:30px" type="submit" asp-controller="home" asp-action="search"> <i class="bi bi-search"></i> </button>
+                </form>
+            </div>
                 
             
             <div>

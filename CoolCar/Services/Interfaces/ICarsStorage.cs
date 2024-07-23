@@ -6,6 +6,7 @@ namespace CoolCar.Services.Interfaces
     {
         public List<Car> GetAll();
         public Car GetById(int id);
-        public void Delete(Car car);      
+        public void Delete(Car car);
+        public void Add(Car car);
     }
 }

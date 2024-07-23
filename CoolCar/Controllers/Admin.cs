@@ -61,5 +61,16 @@ namespace CoolCar.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Add(Car car)
+        {
+            var car1 = new Car(car.Name, car.Description, car.Cost, car.Link, car.hp, car.weight, car.maxSpeed);
+            carsStorage.Add(car1);
+            return RedirectToAction("Cars");
+        }
+        public IActionResult Add()
+        {
+            return View();
+        }
     }
 }
