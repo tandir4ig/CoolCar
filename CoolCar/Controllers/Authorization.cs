@@ -9,17 +9,27 @@ namespace CoolCar.Controllers
         {
             return View();
         }
-        public IActionResult Enter(User user)
+        [HttpPost]
+        public IActionResult Enter(Register user)
         {
-            return Redirect("/Home/Catalog");
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Catalog","Home");
+            }
+            return RedirectToAction("index","Authorization");
         }
         public IActionResult Register()
         {
             return View();
         }
-        public IActionResult AddNewUser(User user)
+        [HttpPost]
+        public IActionResult AddNewUser(Register user)
         {
-            return Redirect("/home/catalog");
+            if (ModelState.IsValid) 
+            {
+                return RedirectToAction("AddNewUser","Authorization");
+            }
+            return RedirectToAction("Register", "Authorization");
         }
     }
 }

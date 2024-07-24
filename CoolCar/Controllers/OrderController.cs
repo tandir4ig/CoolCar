@@ -17,13 +17,33 @@ namespace CoolCar.Controllers
         }
         public IActionResult Index()
         {
-            var UserCard = _cardsStorage.TryGetByUserId(_constants.UserId);
-            return View(UserCard);
+            return View();
         }
         [HttpPost]
-        public IActionResult MakeOrder(Order order)
+        public IActionResult MakeOrder(UserDeliveryInfo order)
         {
-            _ordersInterface.Add(order);
+            if (!order.FullName.All(c => char.IsLetter(c) || c == ' '))
+            {
+                ModelState.AddModelError("", "ФИО должно содержать только буквы");
+            }
+            if (!order.PhoneNumber.All(c => char.IsDigit(c) || "+()- ".Contains(c)))
+            {
+                ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы: + , ( , ) , - .");
+            }
+            if (ModelState.IsValid)
+            {
+                return View();
+            }
+            var existingCard = _cardsStorage.TryGetByUserId(_constants.UserId);
+            var Order = new Order
+            {
+                Id = new Guid(),
+                Name = order.FullName,
+                Address = order.Address,
+                Email = order.Email,
+                PhoneNumber = order.PhoneNumber,
+                Card = existingCard
+            };
             _cardsStorage.Clear(_constants.UserId);
             return View("~/Views/Order/Success.cshtml");
         }
