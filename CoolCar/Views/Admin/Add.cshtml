@@ -1,53 +1,60 @@
-﻿
-@model Car
+﻿@model Car
+
 <form method="post">
     <h4>Добавление товара</h4>
     <br />
     <div class="row">
-        <label for="name" class="col-sm-2 col-form-label">название товара:</label>
+        <label asp-for="Name" class="col-sm-2 col-form-label">название товара:</label>
         <div class="col-sm-8">
-            <input name="Name" type="text" class="form-control" id="name">
+            <input asp-for="Name" type="text" class="form-control" id="name">
+            <span asp-validation-for="Name"/>
         </div>
     </div>
     <br />
     <div class="row">
-        <label for="cost" class="col-sm-2 col-form-label">цена товара, руб.:</label>
+        <label asp-for="Cost" class="col-sm-2 col-form-label">цена товара, руб.:</label>
         <div class="col-sm-8">
-            <input name="Cost" type="text" class="form-control" id="cost">
+            <input asp-for="Cost" type="text" class="form-control" id="cost">
+            <span asp-validation-for="Cost"/>
         </div>
     </div>
     <br />
     <div class="row">
-        <label for="imagePath" class="col-sm-2 col-form-label">изображение товара:</label>
+        <label asp-for="Link" class="col-sm-2 col-form-label">изображение товара:</label>
         <div class="col-sm-8">
-            <input name="Link" type="text" class="form-control" id="Link">
+            <input asp-for="Link" type="text" class="form-control" id="Link">
+            <span asp-validation-for="Link"/>
         </div>
     </div>
     <br />
     <div class="row">
-        <label for="description" class="col-sm-2 col-form-label">описание товара:</label>
+        <label asp-for="Description" class="col-sm-2 col-form-label">описание товара:</label>
         <div class="col-sm-8">
-            <input name="Description" type="text" class="form-control" id="description">
+            <input asp-for="Description" type="text" class="form-control" id="description">
+            <span asp-validation-for="Description"/>
         </div>
     </div>
     <br />
     <div class="row">
         <div class="col-3">
-            <label for="MaxSpeed" class="col" style="vertical-align: middle">Максимальная скорость</label>
+            <label asp-for="maxSpeed" class="col" style="vertical-align: middle">Максимальная скорость</label>
             <div class="col">
-                <input name="MaxSpeed" type="text" class="form-control" id="description">
+                <input asp-for="maxSpeed" type="text" class="form-control" id="description">
+                <span asp-validation-for="maxSpeed"/>
             </div>
         </div>
         <div class="col-3">
-            <label for="Weight" style="vertical-align: middle; text-align: center">Масса авто</label>
+            <label asp-for="weight" style="vertical-align: middle; text-align: center">Масса авто</label>
             <div class="col">
-                <input name="Weight" type="text" class="form-control" id="description">
+                <input asp-for="weight" type="text" class="form-control" id="description">
+                <span asp-validation-for="weight"/>
             </div>
         </div>
         <div class="col-3">
-            <label for="hp" class="col" style="vertical-align: middle">Количество лошадиных сил</label>
+            <label asp-for="hp" class="col" style="vertical-align: middle">Количество лошадиных сил</label>
             <div class="col">
-                <input name="hp" type="text" class="form-control" id="description">
+                <input asp-for="hp" type="text" class="form-control" id="description">
+                <span asp-validation-for="hp"/>
             </div>
         </div>
     </div>

@@ -15,7 +15,6 @@ namespace CoolCar.Controllers
             _database = carsDatabase;
             _cardsDatabase = cardsDatabase;
             _constants = constants;
-            
         }
         public IActionResult Index()
         {

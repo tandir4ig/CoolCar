@@ -30,9 +30,9 @@ namespace CoolCar.Controllers
             {
                 ModelState.AddModelError("", "Номер телефона может содержать только цифры и символы: + , ( , ) , - .");
             }
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return View();
+                return View("index");
             }
             var existingCard = _cardsStorage.TryGetByUserId(_constants.UserId);
             var Order = new Order
