@@ -1,5 +1,61 @@
-﻿@await Html.PartialAsync("AdminMenu")
+﻿@model List<Order>
+@{
+    int i = 1;
+}
+
+@await Html.PartialAsync("AdminMenu")
 
 <div class="text-center">
     <h3>Заказы</h3>
+</div>
+<div class="row">
+    <div class="col-12">
+        <table class="table border border-1">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                    <th>Пользователь (логин)</th>
+                    <th>Дата</th>
+                    <th>Время</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td> @i </td>
+                        <td> @order.TotalCost</td>
+                            @switch (order.Status)
+                            {
+                                case OrderStatus.Created:
+                                    <td>создан</td>
+                                    ; break;
+                                case OrderStatus.Processed:
+                                    <td>Обработан</td>
+                                    ; break;
+                                case OrderStatus.Delivering:
+                                    <td>В пути</td>
+                                    ; break;
+                                case OrderStatus.Delivered:
+                                    <td>Доставлен</td>
+                                    ; break;
+                                case OrderStatus.Canceled:
+                                    <td>Отменен</td>
+                                    ; break;
+                            }
+                        <td>@order.Name</td>
+                        <td>@order.Date</td>
+                        <td>@order.Time</td>
+                        <td class="col-4 text-end">
+                            <a class="btn bi bi-pencil" asp-controller="admin" asp-action="EditStatus" asp-route-orderid="@order.Id"> Редактировать статус</a>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

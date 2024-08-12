@@ -7,10 +7,12 @@ namespace CoolCar.Controllers
     public class AdminController : Controller
     {
         private readonly ICarsStorage carsStorage;
+        private readonly IOrdersInterface orderStorage;
 
         //[ActivatorUtilitiesConstructor]
-        public AdminController(ICarsStorage carsStorage)
+        public AdminController(ICarsStorage carsStorage, IOrdersInterface OrderStorage)
         {
+            this.orderStorage = OrderStorage;
             this.carsStorage = carsStorage;
         }
         public IActionResult Index()
@@ -19,7 +21,8 @@ namespace CoolCar.Controllers
         }
         public IActionResult Orders()
         {
-            return View();
+            var orders = orderStorage.GetOrders();
+            return View(orders);
         }
         public IActionResult Users()
         {
@@ -56,6 +59,22 @@ namespace CoolCar.Controllers
         {
             var car = carsStorage.GetById(carid);
             return View(car);
+        }
+        public IActionResult EditStatus(Guid orderid)
+        {
+            var orders = orderStorage.GetOrders();
+            var order = orders.FirstOrDefault(order => order.Id == orderid);
+            return View(order);
+        }
+
+        [HttpPost]
+        public IActionResult EditStatus(Guid id,OrderStatus Status)
+        {
+            var orders = orderStorage.GetOrders();
+            var order = orders.FirstOrDefault(o => o.Id == id);
+            order.Status = Status;
+            return RedirectToAction("Orders");
+
         }
         public IActionResult AdminMenu()
         {

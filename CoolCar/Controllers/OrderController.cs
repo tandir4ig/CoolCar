@@ -37,13 +37,13 @@ namespace CoolCar.Controllers
             var existingCard = _cardsStorage.TryGetByUserId(_constants.UserId);
             var Order = new Order
             {
-                Id = new Guid(),
                 Name = order.FullName,
                 Address = order.Address,
                 Email = order.Email,
                 PhoneNumber = order.PhoneNumber,
                 Card = existingCard
             };
+            _ordersInterface.Add(Order);
             _cardsStorage.Clear(_constants.UserId);
             return View("~/Views/Order/Success.cshtml");
         }
