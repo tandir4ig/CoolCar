@@ -1,5 +1,6 @@
 using CoolCar.Services;
 using CoolCar.Services.Interfaces;
+using Serilog;
 
 namespace CoolCar
 {
@@ -17,6 +18,9 @@ namespace CoolCar
             builder.Services.AddSingleton<IOrdersInterface, OrderService>();
             builder.Services.AddSingleton<ILikedInterface, LikedService>();
             builder.Services.AddSingleton<ICompareInterface, CompareServise>();
+            builder.Services.AddSingleton<IRoleInterface, RoleService>();
+
+            builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration).Enrich.WithProperty("ApplicationName","Online Shop"));
 
             var app = builder.Build();
 
@@ -28,7 +32,9 @@ namespace CoolCar
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();   
+            app.UseSerilogRequestLogging();    
+            
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -38,6 +44,10 @@ namespace CoolCar
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Authorization}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+                name: "MyArea",
+                pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
             app.Run();
         }

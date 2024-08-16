@@ -2,18 +2,23 @@
 using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoolCar.Controllers
+namespace CoolCar.Areas.Admin.Controllers
 {
+    [Area("Admin")]
+    [Route("Admin/[controller]/[action]")]
     public class AdminController : Controller
     {
         private readonly ICarsStorage carsStorage;
         private readonly IOrdersInterface orderStorage;
+        private readonly IRoleInterface roleInterface;
 
         //[ActivatorUtilitiesConstructor]
-        public AdminController(ICarsStorage carsStorage, IOrdersInterface OrderStorage)
+        public AdminController(ICarsStorage carsStorage, IOrdersInterface OrderStorage, IRoleInterface RolesStorage)
         {
-            this.orderStorage = OrderStorage;
+            orderStorage = OrderStorage;
             this.carsStorage = carsStorage;
+            roleInterface = RolesStorage;
+
         }
         public IActionResult Index()
         {
@@ -30,7 +35,36 @@ namespace CoolCar.Controllers
         }
         public IActionResult Roles()
         {
+            var roles = roleInterface.GetAllRoles();
+            return View(roles);
+        }
+        public IActionResult AddRole()
+        {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddRole(Role role)
+        {
+            var roles = roleInterface.GetAllRoles();
+            if (roles.FirstOrDefault(Role => Role.RoleName == role.RoleName) != null)
+            {
+                ModelState.AddModelError("", "Такая роль уже существует");
+            }
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            roles.Add(role);
+            return RedirectToAction("Roles");
+        }
+        [HttpPost]
+        public IActionResult DeleteRole(Role role)
+        {
+            var roles = roleInterface.GetAllRoles();
+            var currentRole = roles.FirstOrDefault(role => role.RoleName == role.RoleName);
+            roleInterface.Remove(currentRole);
+            return RedirectToAction("Roles");
         }
         public IActionResult Cars()
         {
@@ -68,7 +102,7 @@ namespace CoolCar.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditStatus(Guid id,OrderStatus Status)
+        public IActionResult EditStatus(Guid id, OrderStatus Status)
         {
             var orders = orderStorage.GetOrders();
             var order = orders.FirstOrDefault(o => o.Id == id);
@@ -80,6 +114,7 @@ namespace CoolCar.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Add(Car car)
         {
