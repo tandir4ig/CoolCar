@@ -3,3 +3,9 @@
 <div class="text-center">
     <h3>Пользователи</h3>
 </div>
+@model List<User>
+@foreach(var role in Model)
+{
+    <p1>@role.Name</p1>
+    <br /> <p1>@role.Phone</p1>
+}

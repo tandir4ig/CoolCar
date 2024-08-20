@@ -19,6 +19,7 @@ namespace CoolCar
             builder.Services.AddSingleton<ILikedInterface, LikedService>();
             builder.Services.AddSingleton<ICompareInterface, CompareServise>();
             builder.Services.AddSingleton<IRoleInterface, RoleService>();
+            builder.Services.AddSingleton<IUserInterface, UserService>();
 
             builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration).Enrich.WithProperty("ApplicationName","Online Shop"));
 
@@ -43,7 +44,7 @@ namespace CoolCar
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Authorization}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "MyArea",

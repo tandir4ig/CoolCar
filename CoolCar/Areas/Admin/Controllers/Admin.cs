@@ -11,14 +11,15 @@ namespace CoolCar.Areas.Admin.Controllers
         private readonly ICarsStorage carsStorage;
         private readonly IOrdersInterface orderStorage;
         private readonly IRoleInterface roleInterface;
+        private readonly IUserInterface userInterface;
 
         //[ActivatorUtilitiesConstructor]
-        public AdminController(ICarsStorage carsStorage, IOrdersInterface OrderStorage, IRoleInterface RolesStorage)
+        public AdminController(ICarsStorage carsStorage, IOrdersInterface OrderStorage, IRoleInterface RolesStorage, IUserInterface userInterface)
         {
             orderStorage = OrderStorage;
             this.carsStorage = carsStorage;
             roleInterface = RolesStorage;
-
+            this.userInterface = userInterface;
         }
         public IActionResult Index()
         {
@@ -31,7 +32,7 @@ namespace CoolCar.Areas.Admin.Controllers
         }
         public IActionResult Users()
         {
-            return View();
+            return View(userInterface.GetAll());
         }
         public IActionResult Roles()
         {
