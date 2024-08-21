@@ -4,8 +4,40 @@
     <h3>Пользователи</h3>
 </div>
 @model List<User>
-@foreach(var role in Model)
-{
-    <p1>@role.Name</p1>
-    <br /> <p1>@role.Phone</p1>
+@{
+    int i = 1; 
 }
+<div class="row">
+    <div class="col-12">
+        <table style="width=100%" class="table border border-1">
+            <thead>
+                <tr>
+                    <th width="5%">№</th>
+                    <th width="14%">Login(Email)</th>
+                    <th width="14%">Имя</th>
+                    <th width="14%">Фамилия</th>
+                    <th width="14%">Телефон</th>
+                    <th width="14%">Роль</th>
+                    <th width="14%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>@user.Name</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.Phone</td>
+                        <td>@user.Role.RoleName</td>
+                        <td class="col-4 text-end">
+                            <a class="btn btn-outline-warning bi-pencil" asp-controller="" asp-action="" asp-route-orderid=""> Подробнее</a>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

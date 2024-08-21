@@ -6,36 +6,62 @@ namespace CoolCar.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserInterface _userInterface;
+        private readonly IUserInterface userInterface;
         public AccountController(IUserInterface userInterface)
         {
-            _userInterface = userInterface;
+            this.userInterface = userInterface;
         }
-        public IActionResult Index()
+
+        public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Enter(Register user)
+        public IActionResult Login(Login log)
         {
-            if (ModelState.IsValid)
+            User account = userInterface.TryGetByName(log.login);
+            if(account == null)
             {
-                return RedirectToAction("Catalog", "Home");
+                ModelState.AddModelError("","Пользователь с таким именем не найден");
+                return View();
             }
-            return RedirectToAction("index", "Authorization");
+            if(account.Password != log.Password)
+            {
+                ModelState.AddModelError("", "Неверный пароль");
+                return View();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            return RedirectToAction(nameof(HomeController.Catalog), "Home");
         }
+
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult AddNewUser(Register user)
+        public IActionResult Register(Register regis)
         {
-            if (ModelState.IsValid)
+            if(userInterface.TryGetByName(regis.UserName) != null)
             {
-                return RedirectToAction("AddNewUser", "Authorization");
+                ModelState.AddModelError("", "Пользователь с таким именем уже существует");
+                return View();
             }
-            return RedirectToAction("Register", "Authorization");
+            if(regis.Password == regis.UserName)
+            {
+                ModelState.AddModelError("", "Пароль и логин не должны совпадать");
+                return View();
+            }
+            if(!ModelState.IsValid)
+            {
+                return View();
+            }
+            userInterface.Add(new User(regis.UserName, regis.Password, regis.FirstName, regis.LastName, regis.Phone));
+            return RedirectToAction(nameof(HomeController.Catalog),"Home");
         }
     }
 }
