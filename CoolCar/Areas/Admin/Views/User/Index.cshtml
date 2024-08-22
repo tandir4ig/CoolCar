@@ -3,6 +3,10 @@
 <div class="text-center">
     <h3>Пользователи</h3>
 </div>
+<div style="padding-bottom: 10px">
+    <a class="btn btn-outline-warning" asp-area="admin" asp-controller="User" asp-action="AddUser"><i class="bi bi-plus">Добавить пользователя</i></a>
+</div>
+
 @model List<User>
 @{
     int i = 1; 
