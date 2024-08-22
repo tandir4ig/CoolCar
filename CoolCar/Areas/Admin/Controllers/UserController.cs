@@ -72,10 +72,10 @@ namespace CoolCar.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(Guid userId, ChangePassword password)
+        public IActionResult ChangePassword(ChangePassword password, Guid UserId)
         {
-            userInterface.ChangePassword(userId, password.NewPassword);
-            return RedirectToAction(nameof(Index));
+            userInterface.ChangePassword(UserId, password.NewPassword);
+            return RedirectToAction("index");
         }
     }
 }

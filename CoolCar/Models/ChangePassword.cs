@@ -9,7 +9,7 @@ namespace CoolCar.Models
         public string? NewPassword { get; set; }
 
         [Required(ErrorMessage = "Не указан повторный пароль")]
-        [Compare("Password", ErrorMessage = "Пароли не совпадают")]
+        [Compare("NewPassword", ErrorMessage = "Пароли не совпадают")]
         public string? ConfirmPassword { get; set; }
     }
 }
