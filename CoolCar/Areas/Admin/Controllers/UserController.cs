@@ -50,5 +50,32 @@ namespace CoolCar.Areas.Admin.Controllers
             userInterface.Add(new User(reg.UserName, reg.Password, reg.FirstName, reg.LastName, reg.Phone));
             return RedirectToAction(nameof(HomeController.Catalog), "Home");
         }
+
+        public IActionResult Details(Guid id)
+        {
+            var user = userInterface.TryGetById(id);
+            return View(user);
+        }
+
+        public IActionResult RemoveUser(Guid Id)
+        {
+            userInterface.Del(Id);
+            return RedirectToAction("Index", "User");
+        }
+
+        public IActionResult ChangePassword(Guid userId)
+        {
+            var user = userInterface.TryGetById(userId);
+            ViewData["userId"] = userId;
+            ViewData["userName"] = user.Name;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(Guid userId, ChangePassword password)
+        {
+            userInterface.ChangePassword(userId, password.NewPassword);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

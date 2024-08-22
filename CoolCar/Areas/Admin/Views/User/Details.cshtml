@@ -1,0 +1,59 @@
+﻿@model User
+<h3>@Model.Id</h3>
+<br />
+<form method="post">
+    <div class="row">
+        <div class="col-8">
+            <table class="table">
+                <tr>
+                    <th>Email:</th>
+                    <td style="width:50%">@Model.Name</td>
+                </tr>
+                <tr>
+                    <th>Имя:</th>
+                    <td style="width:50%">@Model.FirstName</td>
+                </tr>
+                <tr>
+                    <th>Фамилия</th>
+                    <td style="width:50%">@Model.LastName</td>
+                </tr>
+                <tr>
+                    <th>Телефон</th>
+                    <td style="width:50%">@Model.Phone</td>
+                </tr>
+                <tr>
+                    <th>Роль</th>
+                    <td style="width:50%">@Model.Role</td>
+                </tr>
+            </table>
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Действия</button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-userId="@Model.Id">Смена пароля</a></li>
+                <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-userId="@Model.Id">Редактирование данных</a></li>
+                <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangeAccess" asp-route-userId="@Model.Id">Права доступа</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <!-- Кнопка-триггер модального окна -->
+                <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Удалить пользователя</button></li>
+            </ul>
+        </div>
+    </div>
+</form>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Удаление пользователя @Model.Name</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                Вы уверены, что хотите удалить этого пользователя?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <a type="button" class="btn btn-primary" asp-area="Admin" asp-controller="User" asp-action="RemoveUser" asp-route-Id="@Model.Id">Удалить</a>
+            </div>
+        </div>
+    </div>
+</div>
