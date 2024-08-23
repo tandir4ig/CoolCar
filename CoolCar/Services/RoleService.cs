@@ -5,7 +5,8 @@ namespace CoolCar.Services
 {
     public class RoleService : IRoleInterface
     {
-        public List<Role> Roles = new List<Role>() { new Role("Admin")};
+        public List<Role> Roles = new List<Role>() { new Role("Admin"), new Role("User")};
+
         public void Add(Role roleName)
         {
             Roles.Add(roleName);

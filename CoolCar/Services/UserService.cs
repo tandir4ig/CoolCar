@@ -48,7 +48,7 @@ namespace CoolCar.Services
         public void Edit(EditUser user, Guid userId)
         {
             var currentUser = TryGetById(userId);
-            currentUser.Name = user.Name;
+            currentUser.Name = user.UserName;
             currentUser.FirstName = user.FirstName;
             currentUser.LastName = user.LastName;
             currentUser.Phone = user.Phone;

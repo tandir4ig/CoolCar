@@ -74,8 +74,49 @@ namespace CoolCar.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult ChangePassword(ChangePassword password, Guid UserId)
         {
+
             userInterface.ChangePassword(UserId, password.NewPassword);
             return RedirectToAction("index");
         }
-    }
+
+        public IActionResult ChangeAccess(Guid userId)
+        {
+            var user = userInterface.TryGetById(userId);
+            var roles = roleInterface.GetAllRoles();
+            ViewData["userId"] = userId;
+            ViewData["userName"] = user.Name;
+            ViewData["userRole"] = user.Role.RoleName;
+            return View(roles);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeAccess(Guid userId, string role)
+        {
+            userInterface.ChangeAccess(userId, role);
+            return RedirectToAction(nameof(Index));
+        }
+
+		public IActionResult Edit(Guid userId)
+		{
+			var user = userInterface.TryGetById(userId);
+			var editUser = new EditUser();
+			editUser.UserName = user.Name;
+			editUser.FirstName = user.FirstName;
+			editUser.LastName = user.LastName;
+			editUser.Phone = user.Phone;
+			ViewData["userId"] = userId;
+			return View(editUser);
+		}
+
+		[HttpPost]
+		public IActionResult Edit(EditUser user, Guid userId)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(user);
+			}
+			userInterface.Edit(user, userId);
+			return RedirectToAction(nameof(Index));
+		}
+	}
 }
