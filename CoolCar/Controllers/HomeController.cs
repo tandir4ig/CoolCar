@@ -1,3 +1,5 @@
+using CoolCar.Db;
+using CoolCar.Models;
 using CoolCar.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -5,15 +7,35 @@ namespace CoolCar.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly CarsStorageService _carsDatabase = new CarsStorageService();
+        private readonly CarsDbRepository _carsDatabase;
+
+        public HomeController(CarsDbRepository carsDatabase)
+        {
+            _carsDatabase = carsDatabase;
+        }
 
         public IActionResult Catalog()
         {
-            var Cars = _carsDatabase.GetAll();
+            var CarsDb = _carsDatabase.GetAll();
+            List<CarViewModel> Cars = new List<CarViewModel>();
+            foreach (var car in CarsDb)
+            {
+                CarViewModel carViewModel = new CarViewModel()
+                {
+                    Name = car.Name,
+                    Description = car.Description,
+                    Cost = car.Cost,
+                    Link = car.Link,
+                    hp = car.hp,
+                    weight = car.weight,
+                    maxSpeed = car.maxSpeed
+                };
+                Cars.Add(carViewModel);
+            }
             return View((object)Cars);
         }
 
-        public IActionResult Car(int id)
+        public IActionResult Car(Guid id)
         {
             var car = _carsDatabase.GetById(id);
             return View(car);

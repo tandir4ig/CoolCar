@@ -3,10 +3,10 @@ using System.Diagnostics.Metrics;
 
 namespace CoolCar.Models
 {
-    public class Car
+    public class CarViewModel
     {
         public static int Counter = 0;
-        public int? Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Заполните поле")]
         [StringLength(100, MinimumLength = 10, ErrorMessage = "длина должна составлять от 10 до 100 символов")]
@@ -37,7 +37,7 @@ namespace CoolCar.Models
         [Range(100, 2000, ErrorMessage = "Значение должно быть в пределах (100,2000)")]
         public int maxSpeed { get; set; }
         //Спецификация
-        public Car(string name, string desc, int cost, string link, int hp, int weight, int maxSpeed) : this()
+        public CarViewModel(string name, string desc, int cost, string link, int hp, int weight, int maxSpeed) : this()
         {
             this.Name = name;
             this.Description = desc;
@@ -47,16 +47,16 @@ namespace CoolCar.Models
             this.weight = weight;
             this.maxSpeed = maxSpeed;
         }
-        public Car(string name, string desc, int cost, string link) : this()
+        public CarViewModel(string name, string desc, int cost, string link) : this()
         {
             this.Name = name;
             this.Description = desc;
             this.Cost = cost;
             this.Link = link;
         }
-        public Car()
+        public CarViewModel()
         {
-            this.Id = Counter++;
+            
         }
     }
 }

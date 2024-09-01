@@ -21,4 +21,8 @@
     <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CoolCar.Db\CoolCar.Db.csproj" />
+  </ItemGroup>
+
 </Project>

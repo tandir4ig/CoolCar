@@ -1,4 +1,6 @@
-﻿using CoolCar.Services;
+﻿using CoolCar.Db;
+using CoolCar.Db.Models;
+using CoolCar.Services;
 using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,16 +23,29 @@ namespace CoolCar.Controllers
             var card = _cardsDatabase.TryGetByUserId(_constants.UserId); 
             return View((object)card);
         }
-        public IActionResult Add(int carId)
+        public IActionResult Add(Guid carId)
         {
             var car = _database.GetById(carId);
-            _cardsDatabase.Add(car, _constants.UserId);
+
+            //var carDb = new Car
+            //{
+            //    Id = car.Id,
+            //    Name = car.Name,
+            //    Description = car.Description,
+            //    Cost = car.Cost,
+            //    Link = car.Link,
+            //    hp = car.hp,
+            //    weight = car.weight,
+            //    maxSpeed = car.maxSpeed,
+            //};
+
+            //_cardsDatabase.Add(carDb, _constants.UserId);
             return RedirectToAction("Index");
         }
         public IActionResult Delete(int carId)
         {
-            var tempCar = _database.GetById(carId);
-            _cardsDatabase.Remove(tempCar, _constants.UserId);
+            //var tempCar = _database.GetById(carId);
+            //_cardsDatabase.Remove(tempCar, _constants.UserId);
             return RedirectToAction("Index");
         }
         public IActionResult Clear()

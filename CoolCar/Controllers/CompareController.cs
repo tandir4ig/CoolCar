@@ -1,4 +1,5 @@
-﻿using CoolCar.Services.Interfaces;
+﻿using CoolCar.Db;
+using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoolCar.Controllers
@@ -20,16 +21,18 @@ namespace CoolCar.Controllers
             var compareCars = compareInterface.GetAllCompare();
             return View(compareCars);
         }
-        public IActionResult Add(int carid)
+        public IActionResult Add(Guid carid)
         {
             var compareCar = _carsDatabase.GetById(carid);
-            compareInterface.Add(compareCar);
+
+            //compareInterface.Add(compareCar);
             return RedirectToAction("Index");
         }
-        public IActionResult Remove(int carid)
+        public IActionResult Remove(Guid carid)
         {
             var tempCar = _carsDatabase.GetById(carid);
-            compareInterface.Remove(tempCar);
+
+            //compareInterface.Remove(tempCar);
             return RedirectToAction("Index");
         }
         public IActionResult Clear()

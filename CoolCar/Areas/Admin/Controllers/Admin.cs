@@ -1,4 +1,6 @@
-﻿using CoolCar.Models;
+﻿using CoolCar.Db;
+using CoolCar.Db.Models;
+using CoolCar.Models;
 using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -72,14 +74,14 @@ namespace CoolCar.Areas.Admin.Controllers
             var cars = carsStorage.GetAll();
             return View(cars);
         }
-        public IActionResult DeleteCar(int carid)
+        public IActionResult DeleteCar(Guid carid)
         {
             var car = carsStorage.GetById(carid);
             carsStorage.Delete(car);
             return RedirectToAction("Cars");
         }
         [HttpPost]
-        public IActionResult Edit(int carid, EditCar editcar)
+        public IActionResult Edit(Guid carid, EditCar editcar)
         {
             var tempcar = carsStorage.GetById(carid);
             tempcar.Name = editcar.Name;
@@ -90,7 +92,7 @@ namespace CoolCar.Areas.Admin.Controllers
             tempcar.maxSpeed = editcar.maxSpeed;
             return RedirectToAction("cars");
         }
-        public IActionResult Edit(int carid)
+        public IActionResult Edit(Guid carid)
         {
             var car = carsStorage.GetById(carid);
             return View(car);
@@ -117,10 +119,22 @@ namespace CoolCar.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Car car)
+        public IActionResult Add(CarViewModel car)
         {
-            var car1 = new Car(car.Name, car.Description, car.Cost, car.Link, car.hp, car.weight, car.maxSpeed);
-            carsStorage.Add(car1);
+            var car1 = new CarViewModel(car.Name, car.Description, car.Cost, car.Link, car.hp, car.weight, car.maxSpeed);
+
+            var CarDb = new Car
+            {
+                Name = car1.Name,
+                Description = car1.Description,
+                Cost = car1.Cost,
+                Link = car1.Link,
+                hp = car1.hp,
+                weight = car1.weight,
+                maxSpeed = car1.maxSpeed
+            };
+
+            carsStorage.Add(CarDb);
             return RedirectToAction("Cars");
         }
         public IActionResult Add()

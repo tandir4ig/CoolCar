@@ -1,6 +1,8 @@
+using CoolCar.Db;
 using CoolCar.Services;
 using CoolCar.Services.Interfaces;
-using Serilog;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace CoolCar
 {
@@ -10,10 +12,13 @@ namespace CoolCar
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+			
+
+			// Add services to the container.
+			builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<ICardsStorage, CardsDatabase>();
-            builder.Services.AddSingleton<ICarsStorage, CarsStorageService>();
+            builder.Services.AddTransient<ICarsStorage, CarsDbRepository>();
             builder.Services.AddSingleton<IConstants, Constants>();
             builder.Services.AddSingleton<IOrdersInterface, OrderService>();
             builder.Services.AddSingleton<ILikedInterface, LikedService>();
@@ -21,7 +26,11 @@ namespace CoolCar
             builder.Services.AddSingleton<IRoleInterface, RoleService>();
             builder.Services.AddSingleton<IUserInterface, UserService>();
 
-            builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration).Enrich.WithProperty("ApplicationName","Online Shop"));
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+                options.UseSqlServer(connection));
+
+
+            //builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration).Enrich.WithProperty("ApplicationName","Online Shop"));
 
             var app = builder.Build();
 
@@ -33,7 +42,7 @@ namespace CoolCar
                 app.UseHsts();
             }
 
-            app.UseSerilogRequestLogging();    
+            //app.UseSerilogRequestLogging();    
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();

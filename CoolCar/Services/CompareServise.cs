@@ -5,8 +5,8 @@ namespace CoolCar.Services
 {
     public class CompareServise : ICompareInterface
     {
-        public List<Car> CompareCars = new List<Car>();
-        public void Add(Car car)
+        public List<CarViewModel> CompareCars = new List<CarViewModel>();
+        public void Add(CarViewModel car)
         {
             if (CompareCars.Contains(car))
             {
@@ -17,7 +17,7 @@ namespace CoolCar.Services
                 CompareCars.Add(car);
             }
         }
-        public void Remove(Car car)
+        public void Remove(CarViewModel car)
         {
             CompareCars.Remove(car);
         }
@@ -25,7 +25,7 @@ namespace CoolCar.Services
         {
             CompareCars.Clear();
         }
-        public List<Car> GetAllCompare()
+        public List<CarViewModel> GetAllCompare()
         {
             return CompareCars;
         }

@@ -5,8 +5,8 @@ namespace CoolCar.Services
 {
     public class LikedService : ILikedInterface
     {
-        public List<Car> Liked = new List<Car>();
-        public void Add(Car car)
+        public List<CarViewModel> Liked = new List<CarViewModel>();
+        public void Add(CarViewModel car)
         {
             if(Liked.Contains(car))
             {
@@ -17,7 +17,7 @@ namespace CoolCar.Services
                 Liked.Add(car);
             }
         }
-        public void Remove(Car car)
+        public void Remove(CarViewModel car)
         {
             Liked.Remove(car);
         }
@@ -25,7 +25,7 @@ namespace CoolCar.Services
         {
             Liked.Clear();
         }
-        public List<Car> GetAllLiked()
+        public List<CarViewModel> GetAllLiked()
         {
             return Liked;
         }

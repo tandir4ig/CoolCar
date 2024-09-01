@@ -4,10 +4,10 @@ namespace CoolCar.Services.Interfaces
 {
     public interface ILikedInterface
     {
-        public void Add(Car car);
-        public void Remove(Car car);
+        public void Add(CarViewModel car);
+        public void Remove(CarViewModel car);
         public void Clear();
-        public List<Car> GetAllLiked();
+        public List<CarViewModel> GetAllLiked();
 
     }
 }
