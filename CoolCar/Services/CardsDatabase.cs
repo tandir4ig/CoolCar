@@ -5,26 +5,26 @@ namespace CoolCar.Services
 {
     public class CardsDatabase : ICardsStorage
     {
-        private  List<Card> cards = new List<Card>();
+        private  List<CardViewModel> cards = new List<CardViewModel>();
 
-        public Card TryGetByUserId(string userId)
+        public CardViewModel TryGetByUserId(string userId)
         {
             return cards.FirstOrDefault(x => x.UserId == userId);
         }
 
         public void Add(CarViewModel car, string userId)
         {
-            Card existingCard = TryGetByUserId(userId);
+            CardViewModel existingCard = TryGetByUserId(userId);
 
             if (existingCard == null)
             {
-                var newCard = new Card
+                var newCard = new CardViewModel
                 {
                     Id = Guid.NewGuid(),
                     UserId = userId,
-                    Cars = new List<CardItem>
+                    Cars = new List<CardItemViewModel>
                     {
-                        new CardItem
+                        new CardItemViewModel
                         {
                             Id = Guid.NewGuid(),
                             Amount = 1,
@@ -41,30 +41,25 @@ namespace CoolCar.Services
                 {
                     existingCardItem.Amount++;
                 }
-                else existingCard.Cars.Add(new CardItem
-                {
-                    Id = Guid.NewGuid(),
-                    Amount = 1,
-                    car = car
-                });
+                
             }
 
         }
 
         public void Remove(CarViewModel car, string userId)
         {
-            Card UserCard = TryGetByUserId(userId);
+            CardViewModel UserCard = TryGetByUserId(userId);
 
-            CardItem? CardItem = UserCard.Cars.FirstOrDefault(x => x.car.Id == car.Id);
+            CardItemViewModel? CardItem = UserCard.Cars.FirstOrDefault(x => x.car.Id == car.Id);
 
             if (CardItem.Amount > 1)
             {
                 CardItem.Amount--;
             }
-            else
-            {
-                UserCard.Cars.Remove(CardItem);
-            }
+            //else
+            //{
+            //    UserCard.Cars.Remove(CardItemViewModel);
+            //}
         }
 
         public void Clear(string userId)

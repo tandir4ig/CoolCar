@@ -1,5 +1,5 @@
-﻿using CoolCar.Db;
-using CoolCar.Db.Models;
+﻿using CoolCar.Db.Models;
+using CoolCar.Db.Services.Interfaces;
 using CoolCar.Models;
 using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -72,7 +72,19 @@ namespace CoolCar.Areas.Admin.Controllers
         public IActionResult Cars()
         {
             var cars = carsStorage.GetAll();
-            return View(cars);
+            var carsViewModels = new List<CarViewModel>();
+            foreach(var car in cars)
+            {
+                CarViewModel carViewModel = new CarViewModel();
+                carViewModel.Id = car.Id;
+                carViewModel.Name = car.Name;
+                carViewModel.Description = car.Description;
+                carViewModel.Cost = car.Cost;
+                carViewModel.weight = car.weight;
+                carViewModel.hp = car.hp;
+                carsViewModels.Add(carViewModel);
+            }
+            return View(carsViewModels);
         }
         public IActionResult DeleteCar(Guid carid)
         {

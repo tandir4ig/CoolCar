@@ -1,4 +1,4 @@
-using CoolCar.Db;
+using CoolCar.Db.Services.Interfaces;
 using CoolCar.Models;
 using CoolCar.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +7,9 @@ namespace CoolCar.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly CarsDbRepository _carsDatabase;
+        private readonly ICarsStorage _carsDatabase;
 
-        public HomeController(CarsDbRepository carsDatabase)
+        public HomeController(ICarsStorage carsDatabase)
         {
             _carsDatabase = carsDatabase;
         }

@@ -1,12 +1,12 @@
-﻿
-using CoolCar.Db.Models;
+﻿using CoolCar.Db.Models;
+using CoolCar.Db.Services.Interfaces;
 
-namespace CoolCar.Db
+namespace CoolCar.Db.Services
 {
-	public class CarsDbRepository : ICarsStorage
+    public class CarsDbRepository : ICarsStorage
     {
         private readonly DatabaseContext databaseContext;
-        public CarsDbRepository(DatabaseContext databaseContext) 
+        public CarsDbRepository(DatabaseContext databaseContext)
         {
             this.databaseContext = databaseContext;
         }

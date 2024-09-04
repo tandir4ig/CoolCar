@@ -1,5 +1,5 @@
-﻿using CoolCar.Db;
-using CoolCar.Db.Models;
+﻿using CoolCar.Db.Models;
+using CoolCar.Db.Services.Interfaces;
 using CoolCar.Services;
 using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;

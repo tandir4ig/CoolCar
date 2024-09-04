@@ -1,6 +1,6 @@
 ﻿namespace CoolCar.Models
 {
-    public class CardItem
+    public class CardItemViewModel
     {
         public Guid Id { get; set; }
         public CarViewModel car { get; set; }

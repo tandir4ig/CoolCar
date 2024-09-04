@@ -1,7 +1,6 @@
-﻿using CoolCar.Db;
-using CoolCar.Db.Models;
+﻿using CoolCar.Db.Models;
 
-namespace CoolCar.Db
+namespace CoolCar.Db.Services.Interfaces
 {
     public interface ICarsStorage
     {
