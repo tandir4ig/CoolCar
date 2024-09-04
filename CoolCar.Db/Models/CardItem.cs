@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoolCar.Db.Models
 {
-    internal class CardItem
+    public class CardItem
     {
         public Guid Id { get; set; }
         public Car car { get; set; }

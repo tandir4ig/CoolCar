@@ -10,8 +10,12 @@ namespace CoolCar.Db
 {
 	public class DatabaseContext : DbContext
 	{
-		// Доступ к таблицам
-		public DbSet<Car> Cars { get; set; }
+        // Доступ к таблицам
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<Car> Cars { get; set; }
+		public DbSet<CardItem> Items { get; set; }
+		
+
 		public DatabaseContext(DbContextOptions<DatabaseContext> options) 
 			: base(options) 
 		{

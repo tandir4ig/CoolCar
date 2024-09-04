@@ -3,6 +3,7 @@ using CoolCar.Db.Services.Interfaces;
 using CoolCar.Models;
 using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using CoolCar.Helpers.Mapping;
 
 namespace CoolCar.Areas.Admin.Controllers
 {
@@ -93,21 +94,16 @@ namespace CoolCar.Areas.Admin.Controllers
             return RedirectToAction("Cars");
         }
         [HttpPost]
-        public IActionResult Edit(Guid carid, EditCar editcar)
+        public IActionResult Edit(Guid carid, EditCarViewModel editcar)
         {
-            var tempcar = carsStorage.GetById(carid);
-            tempcar.Name = editcar.Name;
-            tempcar.Description = editcar.Description;
-            tempcar.Cost = editcar.Cost;
-            tempcar.hp = editcar.hp;
-            tempcar.weight = editcar.weight;
-            tempcar.maxSpeed = editcar.maxSpeed;
+            carsStorage.Update(carid, Mapper.EditCarViewModel_to_EditCar(editcar));
             return RedirectToAction("cars");
         }
         public IActionResult Edit(Guid carid)
         {
-            var car = carsStorage.GetById(carid);
-            return View(car);
+            Car car = carsStorage.GetById(carid);
+            var carViewModel = Mapper.Car_to_CarViewModel(car);
+            return View(carViewModel);
         }
         public IActionResult EditStatus(Guid orderid)
         {

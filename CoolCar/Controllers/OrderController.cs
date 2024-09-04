@@ -41,7 +41,7 @@ namespace CoolCar.Controllers
                 Address = order.Address,
                 Email = order.Email,
                 PhoneNumber = order.PhoneNumber,
-                Card = existingCard
+                // Card = existingCard
             };
             _ordersInterface.Add(Order);
             _cardsStorage.Clear(_constants.UserId);

@@ -17,7 +17,7 @@
                 <a class="navbar-brand bi bi-heart" title="Избранное" asp-area="" asp-controller="liked" asp-action="index"> </a>
                 <a class="navbar-brand bi bi-clipboard2-plus" title="Сравнение" asp-area="" asp-controller="compare" asp-action="index"> </a>
                 <a class="navbar-brand bi bi-cart4" title="Корзина" asp-area="" asp-controller="Card" asp-action="Index">
-                    <sup>@await Component.InvokeAsync("Card")</sup>
+                    @* <sup>@await Component.InvokeAsync("Card")</sup> *@
                 </a>
                 <a class="navbar-brand" title="Корзина" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
             </div>

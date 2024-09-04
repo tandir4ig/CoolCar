@@ -1,4 +1,5 @@
 ﻿using CoolCar.Db.Models;
+using CoolCar.Models;
 
 namespace CoolCar.Db.Services.Interfaces
 {
@@ -8,5 +9,6 @@ namespace CoolCar.Db.Services.Interfaces
         public Car GetById(Guid id);
         public void Delete(Car car);
         public void Add(Car car);
+        public void Update(Guid Id, EditCar car);
     }
 }

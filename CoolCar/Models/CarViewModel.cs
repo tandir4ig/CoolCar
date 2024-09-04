@@ -54,9 +54,6 @@ namespace CoolCar.Models
             this.Cost = cost;
             this.Link = link;
         }
-        public CarViewModel()
-        {
-            
-        }
+        public CarViewModel() { }
     }
 }

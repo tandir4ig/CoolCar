@@ -13,13 +13,13 @@ namespace CoolCar.Views.Shared.Components.Card
             cardsStorage = _cardsStorage;
             this.constants = constants;
         }
-        public IViewComponentResult Invoke()
-        {
-            var card = cardsStorage.TryGetByUserId(constants.UserId);
-            var Amount = card?.Amount ?? 0;
+        //public IViewComponentResult Invoke()
+        //{
+        //    var card = cardsStorage.TryGetByUserId(constants.UserId);
+        //    // var Amount = card?.Amount ?? 0;
 
-            return View("Card", Amount);
+        //    return View("Card", Amount);
 
-        }
+        //}
     }
 }
