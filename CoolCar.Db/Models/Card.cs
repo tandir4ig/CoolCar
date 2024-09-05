@@ -11,6 +11,8 @@ namespace CoolCar.Db.Models
         public Guid Id { get; set; }
         public List<CardItem> Cars { get; set; }
         public string UserId { get; set; }
+
+        public string Penis {  get; set; }
         
     }
 }
