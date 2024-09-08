@@ -1,8 +1,10 @@
 using CoolCar.Db;
+using CoolCar.Db.Models;
 using CoolCar.Db.Services;
 using CoolCar.Db.Services.Interfaces;
 using CoolCar.Services;
 using CoolCar.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -27,12 +29,16 @@ namespace CoolCar
             builder.Services.AddSingleton<ICompareInterface, CompareServise>();
             builder.Services.AddSingleton<IRoleInterface, RoleService>();
             builder.Services.AddSingleton<IUserInterface, UserService>();
-            //builder.Services.AddDbContext<DatabaseContext>(options =>
-            //    options.UseSqlServer(connection));
 
             builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-            builder.Services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connection));
+            
+            // добавляем контекст IndentityContext в качестве сервиса в приложение
+            builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connection));
 
+            // указываем тип пользователя и роли
+            builder.Services.AddIdentity<User, IdentityRole>()
+                            // устанавливаем тип хранилища - наш контекст
+                            .AddEntityFrameworkStores<IdentityContext>();
             //builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration).Enrich.WithProperty("ApplicationName","Online Shop"));
 
             var app = builder.Build();
@@ -52,7 +58,8 @@ namespace CoolCar
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication(); 
+            app.UseAuthorization(); 
 
             app.MapControllerRoute(
                 name: "default",
