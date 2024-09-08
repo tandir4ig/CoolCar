@@ -27,11 +27,11 @@ namespace CoolCar
             builder.Services.AddSingleton<ICompareInterface, CompareServise>();
             builder.Services.AddSingleton<IRoleInterface, RoleService>();
             builder.Services.AddSingleton<IUserInterface, UserService>();
-
             //builder.Services.AddDbContext<DatabaseContext>(options =>
             //    options.UseSqlServer(connection));
 
             builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connection));
 
             //builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration).Enrich.WithProperty("ApplicationName","Online Shop"));
 
