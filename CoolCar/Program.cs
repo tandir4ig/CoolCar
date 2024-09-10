@@ -33,7 +33,7 @@ namespace CoolCar
             builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
             
             // добавляем контекст IndentityContext в качестве сервиса в приложение
-            builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connection));
+            builder.Services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connection));
 
             // указываем тип пользователя и роли
             builder.Services.AddIdentity<User, IdentityRole>()
