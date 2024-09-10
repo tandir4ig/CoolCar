@@ -1,6 +1,6 @@
 ﻿@model Login
 
-<form method="post">
+<form asp-controller="Account" asp-action="Login" method="post">
     <div class="validation" asp-validation-summary="ModelOnly"></div>
     <h4>Вход</h4>
     <br />
@@ -22,7 +22,7 @@
         <div class="col-sm offset">
             <div class="form-check">
                 <input name="CheckBox" class="form-check-input" type="checkbox">
-                <label class="form-check-label" фыз-for="rememberMe">
+                <label class="form-check-label" asp-for="RememberMe">
                     Запомнить меня?
                 </label>
             </div>

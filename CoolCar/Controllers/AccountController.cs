@@ -1,15 +1,22 @@
 ﻿using CoolCar.Models;
+using CoolCar.Db.Models;
 using CoolCar.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CoolCar.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IUserInterface userInterface;
-        public AccountController(IUserInterface userInterface)
+        private readonly UserManager<UserDb> _userManager;
+        private readonly SignInManager<UserDb> _signInManager;
+        public AccountController(IUserInterface userInterface, SignInManager<UserDb> signInManager, UserManager<UserDb> userManager)
         {
             this.userInterface = userInterface;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         public IActionResult Login()
@@ -18,15 +25,16 @@ namespace CoolCar.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Login log)
+        public IActionResult Login(Login login)
         {
-            User account = userInterface.TryGetByName(log.login);
+            var result = _signInManager.PasswordSignInAsync(login.login, login.Password, login.RememberMe, false).Result;
+            User account = userInterface.TryGetByName(login.login);
             if(account == null)
             {
                 ModelState.AddModelError("","Пользователь с таким именем не найден");
                 return View();
             }
-            if(account.Password != log.Password)
+            if(account.Password != login.Password)
             {
                 ModelState.AddModelError("", "Неверный пароль");
                 return View();
@@ -35,7 +43,15 @@ namespace CoolCar.Controllers
             {
                 return View();
             }
-            return RedirectToAction(nameof(HomeController.Catalog), "Home");
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(HomeController.Catalog), "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Неправильный пароль");
+            }
+            return View();
         }
 
         public IActionResult Register()

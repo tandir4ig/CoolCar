@@ -23,7 +23,6 @@ namespace CoolCar
 			builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<ICardsStorage, CardsDbRepository>();
             builder.Services.AddTransient<ICarsStorage, CarsDbRepository>();
-            builder.Services.AddSingleton<IConstants, Constants>();
             builder.Services.AddSingleton<IOrdersInterface, OrderService>();
             builder.Services.AddSingleton<ILikedInterface, LikedService>();
             builder.Services.AddSingleton<ICompareInterface, CompareServise>();
@@ -36,7 +35,7 @@ namespace CoolCar
             builder.Services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connection));
 
             // указываем тип пользователя и роли
-            builder.Services.AddIdentity<User, IdentityRole>()
+            builder.Services.AddIdentity<UserDb, IdentityRole>()
                             // устанавливаем тип хранилища - наш контекст
                             .AddEntityFrameworkStores<IdentityContext>();
             //builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration).Enrich.WithProperty("ApplicationName","Online Shop"));
@@ -59,8 +58,15 @@ namespace CoolCar
             app.UseRouting();
 
             app.UseAuthentication(); 
-            app.UseAuthorization(); 
+            app.UseAuthorization();
 
+            //using (var serviceScope = app.Services.CreateScope())
+            //{
+            //    var services = serviceScope.ServiceProvider;
+            //    var userManager = services.GetRequiredService<UserManager<UserDb>>();
+            //    var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            //    IdentityInitializer.Initialize(userManager, rolesManager);
+            //}
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Account}/{action=Login}/{id?}");

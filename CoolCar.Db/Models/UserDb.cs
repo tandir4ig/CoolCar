@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CoolCar.Db.Models
 {
-    public class User : IdentityUser
+    public class UserDb : IdentityUser
     {
 
     }
