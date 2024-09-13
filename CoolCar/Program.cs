@@ -34,6 +34,17 @@ namespace CoolCar
             // добавляем контекст IndentityContext в качестве сервиса в приложение
             builder.Services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connection));
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromHours(8);
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.Cookie = new CookieBuilder
+                {
+                    IsEssential = true
+                };
+            });
+
             // указываем тип пользователя и роли
             builder.Services.AddIdentity<UserDb, IdentityRole>()
                             // устанавливаем тип хранилища - наш контекст
@@ -60,13 +71,14 @@ namespace CoolCar
             app.UseAuthentication(); 
             app.UseAuthorization();
 
-            //using (var serviceScope = app.Services.CreateScope())
-            //{
-            //    var services = serviceScope.ServiceProvider;
-            //    var userManager = services.GetRequiredService<UserManager<UserDb>>();
-            //    var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-            //    IdentityInitializer.Initialize(userManager, rolesManager);
-            //}
+            using (var serviceScope = app.Services.CreateScope())
+            {
+                var services = serviceScope.ServiceProvider;
+                var userManager = services.GetRequiredService<UserManager<UserDb>>();
+                var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                IdentityInitializer.Initialize(userManager, rolesManager);
+            }
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Account}/{action=Login}/{id?}");

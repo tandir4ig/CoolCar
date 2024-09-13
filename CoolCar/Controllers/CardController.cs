@@ -2,26 +2,29 @@
 using CoolCar.Db.Services.Interfaces;
 using CoolCar.Services;
 using CoolCar.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoolCar.Controllers
 {
+    [Authorize]
     public class CardController : Controller
     {
         private readonly ICarsStorage _database;
         private readonly ICardsStorage _cardsDatabase;
-        private readonly IConstants _constants;
+        //private readonly IConstants _constants;
         
-        public CardController(ICardsStorage cardsDatabase, IConstants constants, ICarsStorage carsDatabase)
+        public CardController(ICardsStorage cardsDatabase, /*IConstants constants*/ ICarsStorage carsDatabase)
         {
             _database = carsDatabase;
             _cardsDatabase = cardsDatabase;
-            _constants = constants;
+            //_constants = constants;
         }
         public IActionResult Index()
         {
-            var card = _cardsDatabase.TryGetByUserId(_constants.UserId); 
-            return View((object)card);
+            //var card = _cardsDatabase.TryGetByUserId(_constants.UserId); 
+            //return View((object)card);
+            return View();
         }
         public IActionResult Add(Guid carId)
         {
@@ -50,7 +53,7 @@ namespace CoolCar.Controllers
         }
         public IActionResult Clear()
         {
-            _cardsDatabase.Clear(_constants.UserId);
+            //_cardsDatabase.Clear(_constants.UserId);
             return RedirectToAction("Index");
         }
     }

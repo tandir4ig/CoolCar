@@ -25,24 +25,24 @@ namespace CoolCar.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Login login)
+        public IActionResult Login(Login log)
         {
-            var result = _signInManager.PasswordSignInAsync(login.login, login.Password, login.RememberMe, false).Result;
-            User account = userInterface.TryGetByName(login.login);
-            if(account == null)
-            {
-                ModelState.AddModelError("","Пользователь с таким именем не найден");
-                return View();
-            }
-            if(account.Password != login.Password)
-            {
-                ModelState.AddModelError("", "Неверный пароль");
-                return View();
-            }
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
+            var result = _signInManager.PasswordSignInAsync(log.login, log.Password, log.RememberMe, false).Result;
+            //User account = userInterface.TryGetByName(log.login);
+            //if(account == null)
+            //{
+            //    ModelState.AddModelError("","Пользователь с таким именем не найден");
+            //    return View();
+            //}
+            //if(account.Password != log.Password)
+            //{
+            //    ModelState.AddModelError("", "Неверный пароль");
+            //    return View();
+            //}
+            //if (!ModelState.IsValid)
+            //{
+            //    return View();
+            //}
             if (result.Succeeded)
             {
                 return RedirectToAction(nameof(HomeController.Catalog), "Home");

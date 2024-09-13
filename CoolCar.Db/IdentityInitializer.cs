@@ -9,13 +9,14 @@ namespace CoolCar.Db
         {
             var adminEmail = "admin@gmail.com";
             var password = "_Aa123456";
-            if (roleManager.FindByNameAsync(Constants.AdminRoleName).Result != null )
+
+            if (roleManager.FindByNameAsync(Constants.AdminRoleName).Result == null )
             {
                 roleManager.CreateAsync(new IdentityRole(Constants.AdminRoleName)).Wait();
             }
             if (roleManager.FindByNameAsync(Constants.UserRoleName).Result == null)
             {
-
+                roleManager.CreateAsync(new IdentityRole(Constants.UserRoleName)).Wait();
             }
             if (userManager.FindByNameAsync(adminEmail).Result == null)
             {
