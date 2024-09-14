@@ -1,6 +1,7 @@
 ﻿@model Login
 
 <form asp-controller="Account" asp-action="Login" method="post">
+    <input asp-for="ReturnUrl" type="hidden" />
     <div class="validation" asp-validation-summary="ModelOnly"></div>
     <h4>Вход</h4>
     <br />
@@ -29,5 +30,5 @@
         </div>
     </div>
     <button type="submit" class="btn btn-primary" asp-area="" asp-controller="account" asp-action="login">Войти</button>
-    <a class="btn btn-outline-primary" asp-controller="Account" asp-action="register">Зарегистрироваться</a>
+    <a class="btn btn-outline-primary" asp-controller="Account" asp-action="register" asp-route-ReturnUrl="@Model.ReturnUrl">Зарегистрироваться</a>
 </form>

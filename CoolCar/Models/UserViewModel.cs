@@ -1,6 +1,6 @@
 ﻿namespace CoolCar.Models
 {
-    public class User
+    public class UserViewModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -10,7 +10,7 @@
         public string Phone { get; set; }
         public Role Role { get; set; }
 
-        public User(string name, string password, string firstName, string lastName, string phone)
+        public UserViewModel(string name, string password, string firstName, string lastName, string phone)
         {
             Id = Guid.NewGuid();
             Role = new Role("User");

@@ -3,7 +3,10 @@
         <div class="container-fluid">
             <div>
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Catalog">CoolCar</a>
-                <a class="navbar-brand" style="font-size: 12px" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
+                @if (User.IsInRole(Constants.AdminRoleName))
+                {
+                    <a class="navbar-brand" style="font-size: 12px" asp-area="Admin" asp-controller="Admin" asp-action="Index">Admin</a>
+                }
             </div>
             <div class="container-fluid" style="width: 600px">
                 <form class="d-flex" role="search" method="post" style="height:30px">
@@ -19,7 +22,15 @@
                 <a class="navbar-brand bi bi-cart4" title="Корзина" asp-area="" asp-controller="Card" asp-action="Index">
                     @* <sup>@await Component.InvokeAsync("Card")</sup> *@
                 </a>
-                <a class="navbar-brand" title="Корзина" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="navbar-brand" title="Корзина" asp-area="" asp-controller="Account" asp-action="Logout">Выйти</a>
+                }
+                else
+                {
+                    <a class="navbar-brand" title="Корзина" asp-area="" asp-controller="Account" asp-action="Login">Войти</a>
+                }
+                
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -28,3 +39,4 @@
         </div>
     </nav>
 </header>
+

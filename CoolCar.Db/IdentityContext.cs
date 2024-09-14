@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoolCar.Db
 {
-    public class IdentityContext : IdentityDbContext<UserDb>
+    public class IdentityContext : IdentityDbContext<User>
     {
         public IdentityContext(DbContextOptions<IdentityContext> options) 
             : base(options)

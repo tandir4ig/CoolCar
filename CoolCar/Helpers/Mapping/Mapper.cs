@@ -74,5 +74,19 @@ namespace CoolCar.Helpers.Mapping
                 maxSpeed = editCarViewModel.maxSpeed,
             };
         }
+        public static List<UserViewModel> Users_to_UsersViewModel(List<User> Users)
+        {
+            List<UserViewModel> UsersViewModelList = new List<UserViewModel>();
+
+            foreach(var user in Users)
+            {
+                UsersViewModelList.Add(new UserViewModel()
+                {
+
+                });
+            }
+
+            return UsersViewModelList;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿@model Register
 
 <form method="post">
+    <input asp-for="ReturnUrl" type="hidden" />
     <div class="validation" asp-validation-summary="ModelOnly"></div>
     <h4>Регистрация</h4>
     <br />

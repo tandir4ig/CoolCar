@@ -15,8 +15,8 @@ namespace CoolCar.Views.Shared.Components.Card
         }
         //public IViewComponentResult Invoke()
         //{
-        //    var card = cardsStorage.TryGetByUserId(constants.UserId);
-        //    // var Amount = card?.Amount ?? 0;
+        //    var cardViewModel = cardsStorage.TryGetByUserId(constants.UserId);
+        //    var Amount = cardViewModel?.Amount ?? 0;
 
         //    return View("Card", Amount);
 

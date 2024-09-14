@@ -33,10 +33,6 @@ namespace CoolCar.Areas.Admin.Controllers
             var orders = orderStorage.GetOrders();
             return View(orders);
         }
-        public IActionResult Users()
-        {
-            return View(userInterface.GetAll());
-        }
         public IActionResult Roles()
         {
             var roles = roleInterface.GetAllRoles();

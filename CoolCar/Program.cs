@@ -46,7 +46,7 @@ namespace CoolCar
             });
 
             // указываем тип пользователя и роли
-            builder.Services.AddIdentity<UserDb, IdentityRole>()
+            builder.Services.AddIdentity<User, IdentityRole>()
                             // устанавливаем тип хранилища - наш контекст
                             .AddEntityFrameworkStores<IdentityContext>();
             //builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration).Enrich.WithProperty("ApplicationName","Online Shop"));
@@ -74,7 +74,7 @@ namespace CoolCar
             using (var serviceScope = app.Services.CreateScope())
             {
                 var services = serviceScope.ServiceProvider;
-                var userManager = services.GetRequiredService<UserManager<UserDb>>();
+                var userManager = services.GetRequiredService<UserManager<User>>();
                 var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                 IdentityInitializer.Initialize(userManager, rolesManager);
             }

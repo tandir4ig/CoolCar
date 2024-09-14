@@ -1,26 +1,33 @@
 ﻿using CoolCar.Controllers;
 using CoolCar.Models;
+using CoolCar.Db;
 using CoolCar.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog.Core;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Identity;
+using CoolCar.Db.Models;
 
 namespace CoolCar.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/[controller]/[action]")]
+    [Authorize(Roles = CoolCar.Db.Constants.AdminRoleName)]
     public class UserController : Controller
     {
-        private readonly IUserInterface userInterface;
         private readonly IRoleInterface roleInterface;
-        public UserController(IUserInterface userInterface, IRoleInterface roleInterface)
+        private readonly UserManager<User> userManager;
+        public UserController(UserManager<User> userManager, IRoleInterface roleInterface)
         {
-            this.userInterface = userInterface;
             this.roleInterface = roleInterface;
+            this.userManager = userManager;
+
         }
         public IActionResult Index()
         {
-            var Users = userInterface.GetAll();
-            return View(Users);
+            var users = userManager.Users.ToList();
+            return View(users.);
         }
         public IActionResult AddUser()
         {
@@ -47,7 +54,7 @@ namespace CoolCar.Areas.Admin.Controllers
                 return View();
             }
 
-            userInterface.Add(new User(reg.UserName, reg.Password, reg.FirstName, reg.LastName, reg.Phone));
+            userInterface.Add(new UserViewModel(reg.UserName, reg.Password, reg.FirstName, reg.LastName, reg.Phone));
             return RedirectToAction(nameof(HomeController.Catalog), "Home");
         }
 
