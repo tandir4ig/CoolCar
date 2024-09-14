@@ -80,13 +80,14 @@ namespace CoolCar.Helpers.Mapping
 
             foreach(var user in Users)
             {
-                UsersViewModelList.Add(new UserViewModel()
-                {
-
-                });
+                UsersViewModelList.Add(new UserViewModel(user.UserName, user.PhoneNumber));    
             }
 
             return UsersViewModelList;
+        }
+        public static UserViewModel ToUserViewModel(this User user)
+        {
+            return new UserViewModel(user.UserName, user.PhoneNumber);
         }
     }
 }
