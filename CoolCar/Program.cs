@@ -27,7 +27,6 @@ namespace CoolCar
             builder.Services.AddSingleton<ILikedInterface, LikedService>();
             builder.Services.AddSingleton<ICompareInterface, CompareServise>();
             builder.Services.AddSingleton<IRoleInterface, RoleService>();
-            builder.Services.AddSingleton<IUserInterface, UserService>();
 
             builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
             

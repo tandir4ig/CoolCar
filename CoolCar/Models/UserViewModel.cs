@@ -2,7 +2,7 @@
 {
     public class UserViewModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string? Name { get; set; }
         public string? Password { get; set; }
         public string? FirstName { get; set; }
@@ -12,7 +12,6 @@
 
         public UserViewModel(string name, string password, string firstName, string lastName, string phone)
         {
-            Id = Guid.NewGuid();
             Role = new Role("User");
             Name = name;
             Password = password;

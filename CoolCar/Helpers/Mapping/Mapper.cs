@@ -87,7 +87,7 @@ namespace CoolCar.Helpers.Mapping
         }
         public static UserViewModel ToUserViewModel(this User user)
         {
-            return new UserViewModel(user.UserName, user.PhoneNumber);
+            return new UserViewModel(user.UserName, user.PhoneNumber) { Id = user.Id};
         }
     }
 }

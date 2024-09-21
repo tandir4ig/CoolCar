@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using CoolCar.Db.Models;
 using CoolCar.Helpers.Mapping;
+using CoolCar.Models;
 
 namespace CoolCar.Areas.Admin.Controllers
 {
@@ -56,31 +57,35 @@ namespace CoolCar.Areas.Admin.Controllers
 
         public IActionResult Details(string name)
         {
-            var user = userManager.FindByNameAsync(name);
+            var user = userManager.FindByNameAsync(name).Result;
             return View(user.ToUserViewModel());
         }
+        public IActionResult ChangePassword(string Name)
+        {
+            var changePassword = new ChangePassword() { UserName = Name };
+            return View(changePassword);
+        }
 
-        //      public IActionResult RemoveUser(Guid Id)
-        //      {
-        //          userInterface.Del(Id);
-        //          return RedirectToAction("Index", "User");
-        //      }
+        [HttpPost]
+        public IActionResult ChangePassword(ChangePassword changePassword)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = userManager.FindByNameAsync(changePassword.UserName).Result;
+                var newHashPassword = userManager.PasswordHasher.HashPassword(user, changePassword.NewPassword);
+                user.PasswordHash = newHashPassword;
+                userManager.UpdateAsync(user).Wait();
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult RemoveUser(string Name)
+        {
+            userManager.DeleteAsync(userManager.FindByNameAsync(Name).Result);
+            return RedirectToAction("Index", "User");
+        }
 
-        //      public IActionResult ChangePassword(Guid userId)
-        //      {
-        //          var user = userInterface.TryGetById(userId);
-        //          ViewData["userId"] = userId;
-        //          ViewData["userName"] = user.Name;
-        //          return View();
-        //      }
 
-        //      [HttpPost]
-        //      public IActionResult ChangePassword(ChangePassword password, Guid UserId)
-        //      {
-
-        //          userInterface.ChangePassword(UserId, password.NewPassword);
-        //          return RedirectToAction("index");
-        //      }
 
         //      public IActionResult ChangeAccess(Guid userId)
         //      {

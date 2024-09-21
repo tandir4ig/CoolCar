@@ -4,25 +4,25 @@ using CoolCar.Models;
 using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using CoolCar.Helpers.Mapping;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoolCar.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Route("Admin/[controller]/[action]")]
+    [Authorize(Roles = CoolCar.Db.Constants.AdminRoleName)]
     public class AdminController : Controller
     {
         private readonly ICarsStorage carsStorage;
         private readonly IOrdersInterface orderStorage;
         private readonly IRoleInterface roleInterface;
-        private readonly IUserInterface userInterface;
 
         //[ActivatorUtilitiesConstructor]
-        public AdminController(ICarsStorage carsStorage, IOrdersInterface OrderStorage, IRoleInterface RolesStorage, IUserInterface userInterface)
+        public AdminController(ICarsStorage carsStorage, IOrdersInterface OrderStorage, IRoleInterface RolesStorage)
         {
             orderStorage = OrderStorage;
-            this.carsStorage = carsStorage;
+            carsStorage = carsStorage;
             roleInterface = RolesStorage;
-            this.userInterface = userInterface;
         }
         public IActionResult Index()
         {

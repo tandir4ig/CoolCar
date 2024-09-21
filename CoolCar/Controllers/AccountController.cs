@@ -10,12 +10,10 @@ namespace CoolCar.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserInterface userInterface;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        public AccountController(IUserInterface userInterface, SignInManager<User> signInManager, UserManager<User> userManager)
+        private readonly SignInManager<User> _signInManager; 
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
         {
-            this.userInterface = userInterface;
             _signInManager = signInManager;
             _userManager = userManager;
         }
@@ -57,7 +55,7 @@ namespace CoolCar.Controllers
                 if (result.Succeeded)
                 {
                     _signInManager.SignInAsync(User, false).Wait();
-
+                    
                     return Redirect(regis.ReturnUrl ?? "/home/catalog");
                 }
                 else
