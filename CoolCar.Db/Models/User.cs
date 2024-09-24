@@ -9,6 +9,6 @@ namespace CoolCar.Db.Models
 {
     public class User : IdentityUser
     {
-
+        
     }
 }

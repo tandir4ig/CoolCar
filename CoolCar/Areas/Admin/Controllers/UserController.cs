@@ -13,13 +13,11 @@ namespace CoolCar.Areas.Admin.Controllers
     [Authorize(Roles = CoolCar.Db.Constants.AdminRoleName)]
     public class UserController : Controller
     {
-        private readonly IRoleInterface roleInterface;
+        private readonly RoleManager<User> roleManager;
         private readonly UserManager<User> userManager;
-        public UserController(UserManager<User> userManager, IRoleInterface roleInterface)
+        public UserController(UserManager<User> userManager)
         {
-            this.roleInterface = roleInterface;
             this.userManager = userManager;
-
         }
         public IActionResult Index()
         {
@@ -75,7 +73,7 @@ namespace CoolCar.Areas.Admin.Controllers
                 var newHashPassword = userManager.PasswordHasher.HashPassword(user, changePassword.NewPassword);
                 user.PasswordHash = newHashPassword;
                 userManager.UpdateAsync(user).Wait();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Catalog", "Home");
             }
             return RedirectToAction(nameof(Index));
         }

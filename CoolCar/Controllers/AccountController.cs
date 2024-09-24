@@ -36,7 +36,7 @@ namespace CoolCar.Controllers
             {
                 ModelState.AddModelError("", "Неправильный пароль");
             }
-            return View();
+            return View(log);
         }
 
         public IActionResult Register(string ReturnUrl)
@@ -51,7 +51,7 @@ namespace CoolCar.Controllers
             if(ModelState.IsValid)
             {
                 var User = new User { UserName = regis.UserName };
-                var result = _userManager.CreateAsync(User).Result;
+                var result = _userManager.CreateAsync(User, regis.Password).Result;
                 if (result.Succeeded)
                 {
                     _signInManager.SignInAsync(User, false).Wait();
