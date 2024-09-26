@@ -5,19 +5,19 @@ namespace CoolCar.Services
 {
     public class RoleService : IRoleInterface
     {
-        public List<Role> Roles = new List<Role>() { new Role("Admin"), new Role("User")};
+        public List<RoleViewModel> Roles = new List<RoleViewModel>() { new RoleViewModel("Admin"), new RoleViewModel("User")};
 
-        public void Add(Role roleName)
+        public void Add(RoleViewModel roleName)
         {
             Roles.Add(roleName);
         }
 
-        public List<Role> GetAllRoles()
+        public List<RoleViewModel> GetAllRoles()
         {
             return Roles;
         }
 
-        public void Remove(Role roleName)
+        public void Remove(RoleViewModel roleName)
         {
             Roles.Remove(roleName);
         }

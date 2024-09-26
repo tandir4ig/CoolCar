@@ -1,5 +1,5 @@
 ﻿@await Html.PartialAsync("AdminMenu")
-@model List<Role>
+@model List<RoleViewModel>
 
 <form method="post">
 <div class="text-center">
@@ -29,13 +29,13 @@
                             <tr>
                                 <th>@role.RoleName</th>
                                 <th class="text-end">
-                                    <button class="btn btn-outline-warning" asp-controller="admin" asp-action="DeleteRole" name="role" value="@role.RoleName"><i class="bi bi-trash-fill"> Удалить роль </i></button>
+                                    <button class="btn btn-outline-warning" asp-controller="Role" asp-action="Remove" name="role" value="@role.RoleName"><i class="bi bi-trash-fill"> Удалить роль </i></button>
                                 </th>
                             </tr>
                         }
                     </tbody>
                 </table>
-                <a class="btn btn-outline-primary" asp-controller="Admin" asp-action="AddRole">Добавить роль</a>
+                <a class="btn btn-outline-primary" asp-area="Admin" asp-controller="Role" asp-action="AddRole">Добавить роль</a>
             }
         </div>
     </div>

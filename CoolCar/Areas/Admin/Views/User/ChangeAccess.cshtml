@@ -1,10 +1,10 @@
-﻿@model List<Role>
+﻿@model List<RoleViewModel>
 <form method="post">
 	<h4>Смена роли доступа для пользователя @ViewData["userName"]</h4>
 	<br />
 	<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
 	<select class="form-select-sm" name="Role">
-		<option selected>@ViewData["userRole"]</option>
+		<option selected>@* @ViewData["userRole"] *@PIDARAS</option>
 		@foreach (var role in Model)
 		{
 			<option value="@role.RoleName">@role.RoleName</option>

@@ -82,9 +82,9 @@ namespace CoolCar
                 name: "default",
                 pattern: "{controller=Account}/{action=Login}/{id?}");
 
-            app.MapControllerRoute(
-                name: "MyArea",
-                pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+            //app.MapControllerRoute(
+            //    name: "MyArea",
+            //    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
             app.Run();
         }

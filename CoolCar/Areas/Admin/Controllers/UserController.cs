@@ -13,11 +13,12 @@ namespace CoolCar.Areas.Admin.Controllers
     [Authorize(Roles = CoolCar.Db.Constants.AdminRoleName)]
     public class UserController : Controller
     {
-        private readonly RoleManager<User> roleManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<User> userManager;
-        public UserController(UserManager<User> userManager)
+        public UserController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
+            this.roleManager = roleManager;
         }
         public IActionResult Index()
         {
@@ -85,22 +86,24 @@ namespace CoolCar.Areas.Admin.Controllers
 
 
 
-        //      public IActionResult ChangeAccess(Guid userId)
-        //      {
-        //          var user = userInterface.TryGetById(userId);
-        //          var roles = roleInterface.GetAllRoles();
-        //          ViewData["userId"] = userId;
-        //          ViewData["userName"] = user.Name;
-        //          ViewData["userRole"] = user.Role.RoleName;
-        //          return View(roles);
-        //      }
+        public IActionResult ChangeAccess(string name)
+        {
+            var user = userManager.FindByNameAsync(name).Result;
+            var roles = roleManager.Roles.ToList();
+            //var user = userInterface.TryGetById(userId);
+            //var roles = roleInterface.GetAllRoles();
+            ViewData["userId"] = user.Id;
+            ViewData["userName"] = user.UserName;
+            ViewData["userRole"] = userManager.GetRolesAsync(user);
+            return View(roles.Select(x => new RoleViewModel(x.Name)).ToList());
+        }
 
-        //      [HttpPost]
-        //      public IActionResult ChangeAccess(Guid userId, string role)
-        //      {
-        //          userInterface.ChangeAccess(userId, role);
-        //          return RedirectToAction(nameof(Index));
-        //      }
+        //[HttpPost]
+        //public IActionResult ChangeAccess(Guid userId, string role)
+        //{
+        //    userInterface.ChangeAccess(userId, role);
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         //public IActionResult Edit(Guid userId)
         //{

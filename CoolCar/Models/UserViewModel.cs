@@ -8,11 +8,11 @@
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? Phone { get; set; }
-        public Role? Role { get; set; }
+        public RoleViewModel? Role { get; set; }
 
         public UserViewModel(string name, string password, string firstName, string lastName, string phone)
         {
-            Role = new Role("User");
+            Role = new RoleViewModel("User");
             Name = name;
             Password = password;
             FirstName = firstName;

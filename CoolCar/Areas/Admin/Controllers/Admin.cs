@@ -21,7 +21,7 @@ namespace CoolCar.Areas.Admin.Controllers
         public AdminController(ICarsStorage carsStorage, IOrdersInterface OrderStorage, IRoleInterface RolesStorage)
         {
             orderStorage = OrderStorage;
-            carsStorage = carsStorage;
+            this.carsStorage = carsStorage;
             roleInterface = RolesStorage;
         }
         public IActionResult Index()
@@ -44,7 +44,7 @@ namespace CoolCar.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddRole(Role role)
+        public IActionResult AddRole(RoleViewModel role)
         {
             var roles = roleInterface.GetAllRoles();
             if (roles.FirstOrDefault(Role => Role.RoleName == role.RoleName) != null)
@@ -59,7 +59,7 @@ namespace CoolCar.Areas.Admin.Controllers
             return RedirectToAction("Roles");
         }
         [HttpPost]
-        public IActionResult DeleteRole(Role role)
+        public IActionResult DeleteRole(RoleViewModel role)
         {
             var roles = roleInterface.GetAllRoles();
             var currentRole = roles.FirstOrDefault(role => role.RoleName == role.RoleName);

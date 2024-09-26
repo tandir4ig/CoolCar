@@ -2,15 +2,15 @@
 
 namespace CoolCar.Models
 {
-    public class Role
+    public class RoleViewModel
     {
         [Required(ErrorMessage = "Заполните поле")]
         [StringLength(50,MinimumLength = 3, ErrorMessage = "Роль должна иметь от 3 до 50 символов")]
         public string RoleName {  get; set; }
-        public Role(string name)
+        public RoleViewModel(string name)
         {
             RoleName = name;
         }
-        public Role() { }
+        public RoleViewModel() { }
     }
 }
