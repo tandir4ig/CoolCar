@@ -6,6 +6,7 @@ using CoolCar.Db.Models;
 using CoolCar.Helpers.Mapping;
 using CoolCar.Models;
 
+
 namespace CoolCar.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -88,18 +89,28 @@ namespace CoolCar.Areas.Admin.Controllers
 
         public IActionResult ChangeAccess(string name)
         {
+
             var user = userManager.FindByNameAsync(name).Result;
             var roles = roleManager.Roles.ToList();
+            var userRoles = userManager.GetRolesAsync(user).Result;
+            var userRole = userRoles[0];
             //var user = userInterface.TryGetById(userId);
             //var roles = roleInterface.GetAllRoles();
             ViewData["userId"] = user.Id;
             ViewData["userName"] = user.UserName;
-            ViewData["userRole"] = userManager.GetRolesAsync(user);
-            return View(roles.Select(x => new RoleViewModel(x.Name)).ToList());
+            ViewData["userRole"] = userRole;
+            var changeAccess = new ChangeAccess
+            {
+                UserName = user.UserName,
+                Role = new RoleViewModel(userRole),
+                AllRoles = roles.Select(x => new RoleViewModel(x.Name)).ToList()
+            };
+
+            return View(changeAccess);
         }
 
         //[HttpPost]
-        //public IActionResult ChangeAccess(Guid userId, string role)
+        //public IActionResult ChangeAccess(string role)
         //{
         //    userInterface.ChangeAccess(userId, role);
         //    return RedirectToAction(nameof(Index));
