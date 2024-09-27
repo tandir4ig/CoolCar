@@ -4,7 +4,7 @@
 	<br />
 	<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
 	<input asp-for="UserName" value="@Model.UserName" type="hidden" />
-	<select  class="form-select-sm">
+	<select name="RoleName" class="form-select-sm">
 		@foreach (var role in @Model.AllRoles)
 		{
 @* 			@if (role.RoleName == ViewData["userRole"]) continue; *@
@@ -14,7 +14,7 @@
 	<br />
 	<br />
 	<br />
-	<button type="submit" class="btn btn-primary" asp-area="Admin" asp-controller="User" asp-action="ChangeAccess">Сохранить</button>
+	<button type="submit" class="btn btn-primary" asp-area="Admin" asp-controller="User" asp-action="ChangeAccess" asp-route-RoleName="RoleName">Сохранить</button>
 	<a class="btn btn-outline-primary" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
 </form>
 
