@@ -79,6 +79,7 @@ namespace CoolCar.Areas.Admin.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult RemoveUser(string Name)
         {
             userManager.DeleteAsync(userManager.FindByNameAsync(Name).Result);
@@ -109,12 +110,12 @@ namespace CoolCar.Areas.Admin.Controllers
             return View(changeAccess);
         }
 
-        //[HttpPost]
-        //public IActionResult ChangeAccess(string role)
-        //{
-        //    userInterface.ChangeAccess(userId, role);
-        //    return RedirectToAction(nameof(Index));
-        //}
+        [HttpPost]
+        public IActionResult ChangeAccess(ChangeAccess chngAccss, string UserRole)
+        {
+            var s = chngAccss.Role;
+            return View();
+        }
 
         //public IActionResult Edit(Guid userId)
         //{

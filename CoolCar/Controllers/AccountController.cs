@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using CoolCar.Db;
 
 namespace CoolCar.Controllers
 {
@@ -54,7 +55,10 @@ namespace CoolCar.Controllers
                 var result = _userManager.CreateAsync(User, regis.Password).Result;
                 if (result.Succeeded)
                 {
+
                     _signInManager.SignInAsync(User, false).Wait();
+
+                    TryAssignUserRole(User);
                     
                     return Redirect(regis.ReturnUrl ?? "/home/catalog");
                 }
@@ -85,6 +89,19 @@ namespace CoolCar.Controllers
             //}
             //userInterface.Add(new User(regis.UserName, regis.Password, regis.FirstName, regis.LastName, regis.Phone));
             //return RedirectToAction(nameof(HomeController.Catalog),"Home");
+        }
+
+        private void TryAssignUserRole(User user)
+        {
+            try
+            {
+                _userManager.AddToRoleAsync(user, Constants.UserRoleName).Wait();
+            }
+            catch (Exception)
+            {
+                //log - необходимо добавить логер
+                throw;
+            }
         }
 
         public IActionResult Logout()
