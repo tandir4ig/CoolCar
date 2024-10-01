@@ -1,21 +1,29 @@
 ﻿@model ChangeAccess
 <form method="post">
-	<h4>Смена роли доступа для пользователя @ViewData["userName"]</h4>
-	<br />
-	<div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
-	<input asp-for="UserName" value="@Model.UserName" type="hidden" />
-	<select name="RoleName" class="form-select-sm">
-		@foreach (var role in @Model.AllRoles)
-		{
-@* 			@if (role.RoleName == ViewData["userRole"]) continue; *@
-			<option value="@role.RoleName">@role.RoleName</option>
-		}
-	</select>
-	<br />
-	<br />
-	<br />
-	<button type="submit" class="btn btn-primary" asp-area="Admin" asp-controller="User" asp-action="ChangeAccess" asp-route-RoleName="RoleName">Сохранить</button>
-	<a class="btn btn-outline-primary" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
+    <h4>Смена роли доступа для пользователя @ViewData["userName"]</h4>
+    <br />
+    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div>
+    <input asp-for="UserName" value="@Model.UserName" type="hidden" />
+    <select name="RoleName" class="form-select-sm">
+        @foreach (var role in @Model.AllRoles)
+        {
+            @if (role.RoleName == ViewData["userRole"].ToString())
+            {
+                <option value="@role.RoleName" selected>@role.RoleName</option>
+            }
+
+            else
+            {
+                <option value="@role.RoleName">@role.RoleName</option>
+            }
+
+        }
+    </select>
+    <br />
+    <br />
+    <br />
+    <button type="submit" class="btn btn-primary" asp-area="Admin" asp-controller="User" asp-action="ChangeAccess" asp-route-RoleName="RoleName">Сохранить</button>
+    <a class="btn btn-outline-primary" asp-area="Admin" asp-controller="User" asp-action="Index">Отмена</a>
 </form>
 
 @* selected value="@Model.Role" *@

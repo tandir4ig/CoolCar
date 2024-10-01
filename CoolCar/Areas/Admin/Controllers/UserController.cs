@@ -113,9 +113,18 @@ namespace CoolCar.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult ChangeAccess(ChangeAccess chngAccss, string RoleName)
         {
-            userManager.GetRolesAsync(new User { UserName = RoleName });
-            var s = chngAccss.Role;
-            return View();
+            var user = userManager.FindByNameAsync(chngAccss.UserName).Result;
+            var userRole = (userManager.GetRolesAsync(user).Result)[0];
+
+
+            var newRole = roleManager.Roles.FirstOrDefault(x => x.Name == RoleName);
+
+            userManager.AddToRoleAsync(user, newRole.Name).Wait();
+            userManager.RemoveFromRoleAsync(user, userRole).Wait();
+            
+            var res = userManager.IsInRoleAsync(user, newRole.Name).Result;
+
+            return RedirectToAction("Catalog", "Home");
         }
 
         //public IActionResult Edit(Guid userId)
