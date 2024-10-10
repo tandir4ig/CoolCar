@@ -9,6 +9,6 @@ namespace CoolCar.Db.Services.Interfaces
         public Car GetById(Guid id);
         public void Delete(Car car);
         public void Add(Car car);
-        public void Update(Guid Id, EditCar car);
+        public void Update(Car car);
     }
 }

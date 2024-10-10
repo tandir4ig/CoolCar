@@ -1,8 +1,12 @@
-﻿@model CarViewModel
+﻿@using CoolCar.Areas.Admin.Models
 
-<form method="post">
+@model AddCarViewModel
+
+<form method="post" enctype="multipart/form-data">
     <h4>Добавление товара</h4>
-    <br />
+
+    <div class="text-danger font-weight-bold" asp-validation-summary="ModelOnly"></div> <br />
+
     <div class="row">
         <label asp-for="Name" class="col-sm-2 col-form-label">название товара:</label>
         <div class="col-sm-8">
@@ -16,14 +20,6 @@
         <div class="col-sm-8">
             <input asp-for="Cost" type="text" class="form-control" id="cost">
             <span asp-validation-for="Cost"/>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <label asp-for="Link" class="col-sm-2 col-form-label">изображение товара:</label>
-        <div class="col-sm-8">
-            <input asp-for="Link" type="text" class="form-control" id="Link">
-            <span asp-validation-for="Link"/>
         </div>
     </div>
     <br />
@@ -55,6 +51,12 @@
             <div class="col">
                 <input asp-for="hp" type="text" class="form-control" id="description">
                 <span asp-validation-for="hp"/>
+            </div>
+        </div>
+        <div class="col-3">
+            <label asp-for="UploadedFiles" class="col" style="vertical-align: middle">Загрузить изображения</label>
+            <div class="col">
+                <input asp-for="UploadedFiles" type="file" multiple class="form-control" id="description">
             </div>
         </div>
     </div>

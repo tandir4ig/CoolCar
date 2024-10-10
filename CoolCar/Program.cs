@@ -2,10 +2,13 @@ using CoolCar.Db;
 using CoolCar.Db.Models;
 using CoolCar.Db.Services;
 using CoolCar.Db.Services.Interfaces;
+using CoolCar.Helpers;
 using CoolCar.Services;
 using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using CoolCar.Helpers;
+using Microsoft.Extensions.FileProviders;
 
 
 namespace CoolCar
@@ -27,6 +30,7 @@ namespace CoolCar
             builder.Services.AddSingleton<ILikedInterface, LikedService>();
             builder.Services.AddSingleton<ICompareInterface, CompareServise>();
             builder.Services.AddSingleton<IRoleInterface, RoleService>();
+            builder.Services.AddTransient<ImagesProvider>();
 
             builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
             

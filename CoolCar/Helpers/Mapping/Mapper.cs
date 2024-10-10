@@ -1,4 +1,5 @@
-﻿using CoolCar.Db.Models;
+﻿using CoolCar.Areas.Admin.Models;
+using CoolCar.Db.Models;
 using CoolCar.Models;
 
 namespace CoolCar.Helpers.Mapping
@@ -10,7 +11,7 @@ namespace CoolCar.Helpers.Mapping
             return new Card()
             {
                 Id = cardViewModel.Id,
-                UserId = cardViewModel.UserId,
+                //UserId = cardViewModel.UserId,
                 Cars = new List<CardItem>(),
             };
         }
@@ -40,7 +41,6 @@ namespace CoolCar.Helpers.Mapping
                 Name = carViewModel.Name,
                 Description = carViewModel.Description,
                 Cost = carViewModel.Cost,
-                Link = carViewModel.Link,
                 hp = carViewModel.hp,
                 weight = carViewModel.weight,
                 maxSpeed = carViewModel.maxSpeed,
@@ -54,40 +54,91 @@ namespace CoolCar.Helpers.Mapping
                 Name = car.Name,
                 Description = car.Description,
                 Cost = car.Cost,
-                Link = car.Link,
                 hp = car.hp,
                 weight = car.weight,
                 maxSpeed = car.maxSpeed,
-            };
-        }
-
-        public static EditCar EditCarViewModel_to_EditCar(EditCarViewModel editCarViewModel)
-        {
-            return new EditCar()
-            {
-                Name = editCarViewModel.Name,
-                Description = editCarViewModel.Description,
-                Cost = editCarViewModel.Cost,
-                Link = editCarViewModel.Link,
-                hp = editCarViewModel.hp,
-                weight = editCarViewModel.weight,
-                maxSpeed = editCarViewModel.maxSpeed,
+                ImagesPaths = ToImagesPaths(car.Images).ToArray()
             };
         }
         public static List<UserViewModel> Users_to_UsersViewModel(List<User> Users)
         {
             List<UserViewModel> UsersViewModelList = new List<UserViewModel>();
 
-            foreach(var user in Users)
+            foreach (var user in Users)
             {
-                UsersViewModelList.Add(new UserViewModel(user.UserName, user.PhoneNumber));    
+                UsersViewModelList.Add(new UserViewModel(user.UserName, user.PhoneNumber));
             }
 
             return UsersViewModelList;
         }
         public static UserViewModel ToUserViewModel(this User user)
         {
-            return new UserViewModel(user.UserName, user.PhoneNumber) { Id = user.Id};
+            return new UserViewModel(user.UserName, user.PhoneNumber) { Id = user.Id };
+        }
+        public static Car AddCarViewModel_to_Car(this AddCarViewModel car)
+        {
+            return new Car()
+            {
+                Name = car.Name,
+                Description = car.Description,
+                Cost = car.Cost,
+                hp = car.hp,
+                weight = car.weight,
+                maxSpeed = car.maxSpeed,
+            };
+        }
+        public static Car ToCar(this AddCarViewModel addCarViewModel, List<string> imagesPath)
+        {
+            return new Car
+            {
+                Name = addCarViewModel.Name,
+                Description = addCarViewModel.Description,
+                Cost = addCarViewModel.Cost,
+                hp = addCarViewModel.hp,
+                weight = addCarViewModel.weight,
+                maxSpeed = addCarViewModel.maxSpeed,
+                Images = ToImages(imagesPath)
+            };
+        }
+        public static Car ToCar(this EditCarViewModel editCarViewModel)
+        {
+            return new Car()
+            {
+                Id = editCarViewModel.Id,
+                Name = editCarViewModel.Name,
+                Description = editCarViewModel.Description,
+                Cost = editCarViewModel.Cost,
+                hp = editCarViewModel.hp,
+                weight = editCarViewModel.weight,
+                maxSpeed = editCarViewModel.maxSpeed,
+                Images = editCarViewModel.ImagesPaths.ToImages()
+            }; 
+        }
+        public static List<Image> ToImages(this List<string> paths)
+        {
+            return paths.Select(x => new Image() { Url = x }).ToList();
+        }
+        public static List<string> ToPaths(this List<Image> images)
+        {
+            return images.Select(x => x.Url).ToList();
+        }
+        public static List<string> ToImagesPaths(this List<Image> paths)
+        {
+            return paths.Select(x => x.Url).ToList();
+        }
+        public static EditCarViewModel ToEditCarViewModel(this Car car)
+        {
+            return new EditCarViewModel()
+            {
+                Id = car.Id,
+                Name = car.Name,
+                Description = car.Description,
+                Cost = car.Cost,
+                hp = car.hp,
+                weight = car.weight,
+                maxSpeed = car.maxSpeed,
+                ImagesPaths = car.Images.ToImagesPaths()
+            };
         }
     }
 }

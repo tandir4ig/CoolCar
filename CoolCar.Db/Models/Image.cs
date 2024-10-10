@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CoolCar.Db.Models
 {
-    public class Card
+    public class Image
     {
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public List<CardItem> Cars { get; set; }
-        public User User { get; set; }
+        public string Url { get; set; }
+        public Guid CarId { get; set; }
+        public Car Car { get; set; }
     }
 }

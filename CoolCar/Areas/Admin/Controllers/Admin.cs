@@ -5,6 +5,8 @@ using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using CoolCar.Helpers.Mapping;
 using Microsoft.AspNetCore.Authorization;
+using CoolCar.Areas.Admin.Models;
+using CoolCar.Helpers;
 
 namespace CoolCar.Areas.Admin.Controllers
 {
@@ -16,13 +18,15 @@ namespace CoolCar.Areas.Admin.Controllers
         private readonly ICarsStorage carsStorage;
         private readonly IOrdersInterface orderStorage;
         private readonly IRoleInterface roleInterface;
+        private readonly ImagesProvider imagesProvider;
 
         //[ActivatorUtilitiesConstructor]
-        public AdminController(ICarsStorage carsStorage, IOrdersInterface OrderStorage, IRoleInterface RolesStorage)
+        public AdminController(ICarsStorage carsStorage, IOrdersInterface OrderStorage, IRoleInterface RolesStorage, ImagesProvider imagesProvider)
         {
             orderStorage = OrderStorage;
             this.carsStorage = carsStorage;
             roleInterface = RolesStorage;
+            this.imagesProvider = imagesProvider;
         }
         public IActionResult Index()
         {
@@ -90,60 +94,61 @@ namespace CoolCar.Areas.Admin.Controllers
             return RedirectToAction("Cars");
         }
         [HttpPost]
-        public IActionResult Edit(Guid carid, EditCarViewModel editcar)
+        public IActionResult Edit(EditCarViewModel editCarViewModel)
         {
-            carsStorage.Update(carid, Mapper.EditCarViewModel_to_EditCar(editcar));
+            if (!ModelState.IsValid)
+            {
+                return View(editCarViewModel);
+            }
+
+            var addedImagePaths = imagesProvider.SafeFiles(editCarViewModel.UploadedFiles, ImageFolders.Cars); //Вернули адреса добавленных картинок
+            editCarViewModel.ImagesPaths = addedImagePaths; // переопределили текущие пути к картинкам на пути новых картинок
+            carsStorage.Update(editCarViewModel.ToCar());
             return RedirectToAction("cars");
         }
         public IActionResult Edit(Guid carid)
         {
             Car car = carsStorage.GetById(carid);
-            var carViewModel = Mapper.Car_to_CarViewModel(car);
-            return View(carViewModel);
-        }
-        public IActionResult EditStatus(Guid orderid)
-        {
-            var orders = orderStorage.GetOrders();
-            var order = orders.FirstOrDefault(order => order.Id == orderid);
-            return View(order);
+            return View(car.ToEditCarViewModel());
         }
 
-        [HttpPost]
-        public IActionResult EditStatus(Guid id, OrderStatus Status)
-        {
-            var orders = orderStorage.GetOrders();
-            var order = orders.FirstOrDefault(o => o.Id == id);
-            order.Status = Status;
-            return RedirectToAction("Orders");
-
-        }
         public IActionResult AdminMenu()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Add(CarViewModel car)
+        public IActionResult Add(AddCarViewModel car)
         {
-            var car1 = new CarViewModel(car.Name, car.Description, car.Cost, car.Link, car.hp, car.weight, car.maxSpeed);
-
-            var CarDb = new Car
+            if (!ModelState.IsValid)
             {
-                Name = car1.Name,
-                Description = car1.Description,
-                Cost = car1.Cost,
-                Link = car1.Link,
-                hp = car1.hp,
-                weight = car1.weight,
-                maxSpeed = car1.maxSpeed
-            };
+                return View(car);
+            }
 
-            carsStorage.Add(CarDb);
-            return RedirectToAction("Cars");
+            var imagesPath = imagesProvider.SafeFiles(car.UploadedFiles, ImageFolders.Cars);
+
+            carsStorage.Add(car.ToCar(imagesPath));
+            return RedirectToAction("Catalog", "Home");
         }
         public IActionResult Add()
         {
             return View();
         }
+
+        //public IActionResult EditStatus(Guid orderid)
+        //{
+        //    var orders = orderStorage.GetOrders();
+        //    var order = orders.FirstOrDefault(order => order.Id == orderid);
+        //    return View(order);
+        //}
+
+        //[HttpPost]
+        //public IActionResult EditStatus(Guid id, OrderStatus Status)
+        //{
+        //    var orders = orderStorage.GetOrders();
+        //    var order = orders.FirstOrDefault(o => o.Id == id);
+        //    order.Status = Status;
+        //    return RedirectToAction("Orders");
+        //}
     }
 }

@@ -13,6 +13,7 @@ namespace CoolCar.Db
         // Доступ к таблицам
         public DbSet<Card> Cards { get; set; }
         public DbSet<Car> Cars { get; set; }
+		public DbSet<Image> Images { get; set; }
 		public DbSet<CardItem> Items { get; set; }
 		
 
@@ -21,5 +22,9 @@ namespace CoolCar.Db
 		{
 			Database.Migrate();
 		}
-    }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+			modelBuilder.Entity<Image>().HasOne(p => p.Car).WithMany(p => p.Images).HasForeignKey(p => p.CarId).OnDelete(DeleteBehavior.Cascade);
+        }
+    }	
 }

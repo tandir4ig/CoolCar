@@ -14,12 +14,12 @@ namespace CoolCar.Services
             this.databaseContext = databaseContext;
         }
 
-        public Card TryGetByUserId(string userId)
+        public Card TryGetByUserId(Guid userId)
         {
             return databaseContext.Cards.FirstOrDefault(x => x.UserId == userId);
         }
 
-        public void Add(Car car, string userId)
+        public void Add(Car car, Guid userId)
         {
             Card existingCard = TryGetByUserId(userId);
 
@@ -52,7 +52,7 @@ namespace CoolCar.Services
             databaseContext.SaveChanges();
         }
 
-        public void Remove(Car car, string userId)
+        public void Remove(Car car, Guid userId)
         {
             Card UserCard = TryGetByUserId(userId);
 
@@ -68,7 +68,7 @@ namespace CoolCar.Services
             }
         }
 
-        public void Clear(string userId)
+        public void Clear(Guid userId)
         {
             var userCard = TryGetByUserId(userId);
             databaseContext.Cards.Remove(userCard);

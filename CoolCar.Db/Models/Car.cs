@@ -14,12 +14,27 @@ namespace CoolCar.Db.Models
         
         public int Cost { get; set; }
 
-        public string Link { get; set; }
-
         public int hp { get; set; }
 
         public int weight { get; set; }
 
         public int maxSpeed { get; set; }
+        public List<Image> Images { get; set; }
+        public Car(string name, string desc, int cost, int hp, int weight, int maxSpeed) : this()
+        {
+            this.Name = name;
+            this.Description = desc;
+            this.Cost = cost;
+            this.hp = hp;
+            this.weight = weight;
+            this.maxSpeed = maxSpeed;
+        }
+        public Car(string name, string desc, int cost) : this()
+        {
+            this.Name = name;
+            this.Description = desc;
+            this.Cost = cost;
+        }
+        public Car() { }
     }
 }

@@ -29,7 +29,6 @@ namespace CoolCar.Controllers
 				Name = car.Name,
 				Description = car.Description,
 				Cost = car.Cost,
-				Link = car.Link,
 				hp = car.hp,
 				weight = car.weight,
 				maxSpeed = car.maxSpeed,

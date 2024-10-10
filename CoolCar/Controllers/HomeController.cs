@@ -1,4 +1,6 @@
 using CoolCar.Db.Services.Interfaces;
+using CoolCar.Helpers;
+using CoolCar.Helpers.Mapping;
 using CoolCar.Models;
 using CoolCar.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -22,13 +24,14 @@ namespace CoolCar.Controllers
             {
                 CarViewModel carViewModel = new CarViewModel()
                 {
+                    Id = car.Id,
                     Name = car.Name,
                     Description = car.Description,
                     Cost = car.Cost,
-                    Link = car.Link,
                     hp = car.hp,
                     weight = car.weight,
-                    maxSpeed = car.maxSpeed
+                    maxSpeed = car.maxSpeed,
+                    ImagesPaths = car.Images.Select(x => x.Url).ToArray(),
                 };
                 Cars.Add(carViewModel);
             }
@@ -38,7 +41,7 @@ namespace CoolCar.Controllers
         public IActionResult Car(Guid id)
         {
             var car = _carsDatabase.GetById(id);
-            return View(car);
+            return View(Mapper.Car_to_CarViewModel(car));
         }
 
         [HttpPost]

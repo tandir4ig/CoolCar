@@ -1,18 +1,17 @@
 ﻿using CoolCar.Models;
 using CoolCar.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CoolCar.Controllers
 {
     public class OrderController : Controller
     {
         private readonly ICardsStorage _cardsStorage;
-        private readonly IConstants _constants;
         private readonly IOrdersInterface _ordersInterface;
-        public OrderController(ICardsStorage cardsStorage, IConstants constants, IOrdersInterface ordersInterface)
+        public OrderController(ICardsStorage cardsStorage, IOrdersInterface ordersInterface)
         {
             _cardsStorage = cardsStorage;
-            _constants = constants;
             _ordersInterface = ordersInterface;
         }
         public IActionResult Index()
@@ -34,7 +33,7 @@ namespace CoolCar.Controllers
             {
                 return View("index");
             }
-            var existingCard = _cardsStorage.TryGetByUserId(_constants.UserId);
+            var existingCard = _cardsStorage.TryGetByUserId(Guid.NewGuid());
             var Order = new Order
             {
                 Name = order.FullName,
@@ -44,7 +43,7 @@ namespace CoolCar.Controllers
                 // Card = existingCard
             };
             _ordersInterface.Add(Order);
-            _cardsStorage.Clear(_constants.UserId);
+            _cardsStorage.Clear(Guid.NewGuid());
             return View("~/Views/Order/Success.cshtml");
         }
         public IActionResult AllOrders()

@@ -1,6 +1,7 @@
 ﻿using CoolCar.Db.Models;
 using CoolCar.Db.Services.Interfaces;
 using CoolCar.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoolCar.Db.Services
 {
@@ -14,11 +15,11 @@ namespace CoolCar.Db.Services
 
         public List<Car> GetAll()
         {
-            return databaseContext.Cars.ToList();
+            return databaseContext.Cars.Include(x => x.Images).ToList();
         }
         public Car GetById(Guid id)
         {
-            return databaseContext.Cars.FirstOrDefault(car => car.Id == id);
+            return databaseContext.Cars.Include(x => x.Images).FirstOrDefault(car => car.Id == id);
         }
         public void Delete(Car car)
         {
@@ -30,19 +31,23 @@ namespace CoolCar.Db.Services
             databaseContext.Cars.Add(car);
             databaseContext.SaveChanges();
         }
-        public void Update(Guid Id, EditCar car)
+        public void Update(Car car)
         {
-            var carDb = GetById(Id);
+            var existingCar = databaseContext.Cars.Include(x => x.Images).FirstOrDefault(x => x.Id == car.Id);
 
-            carDb.Name = car.Name;
-            carDb.Description = car.Description;
-            carDb.Cost = car.Cost;
-            carDb.Link = car.Link;
-            carDb.hp = car.hp;
-            carDb.weight = car.weight;
-            carDb.maxSpeed = car.maxSpeed;
+            existingCar .Name = car.Name;
+            existingCar.Description = car.Description;
+            existingCar.Cost = car.Cost;
+            existingCar.hp = car.hp;
+            existingCar.weight = car.weight;
+            existingCar.maxSpeed = car.maxSpeed;
 
-            databaseContext.Update(carDb);
+            foreach(var image in car.Images)
+            {
+                image.Id = car.Id;
+                databaseContext.Images.Add(image);
+            }
+
             databaseContext.SaveChanges();
         }
     }

@@ -8,8 +8,8 @@
 
         <div class="col-3 card" style="margin: 10px">
 
-            <img class="card-img-top img-same-size" src="~/@product.Link" />
-            <a style="color:dimgrey; font-size:2.5em" href="/home/car/@product.Id">@product.Name</a>
+            <img class="card-img-top img-same-size" src="@product.ImagePath" />
+            <a style="color:dimgrey; font-size:2.5em" asp-area="" asp-controller="Home" asp-action="Car" asp-route-id="@product.Id">@product.Name</a>
             <p><br />@product.Description</p>
             <p>@product.Cost</p>
 

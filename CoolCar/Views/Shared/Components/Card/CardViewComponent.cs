@@ -7,11 +7,9 @@ namespace CoolCar.Views.Shared.Components.Card
     public class CardViewComponent : ViewComponent
     {
         private readonly ICardsStorage cardsStorage;
-        private readonly IConstants constants;
-        public CardViewComponent(ICardsStorage _cardsStorage, IConstants constants)
+        public CardViewComponent(ICardsStorage _cardsStorage)
         {
             cardsStorage = _cardsStorage;
-            this.constants = constants;
         }
         //public IViewComponentResult Invoke()
         //{
