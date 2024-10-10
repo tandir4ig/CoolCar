@@ -35,7 +35,7 @@ namespace CoolCar.Db.Services
         {
             var existingCar = databaseContext.Cars.Include(x => x.Images).FirstOrDefault(x => x.Id == car.Id);
 
-            existingCar .Name = car.Name;
+            existingCar.Name = car.Name;
             existingCar.Description = car.Description;
             existingCar.Cost = car.Cost;
             existingCar.hp = car.hp;
@@ -44,7 +44,7 @@ namespace CoolCar.Db.Services
 
             foreach(var image in car.Images)
             {
-                image.Id = car.Id;
+                image.CarId = car.Id;
                 databaseContext.Images.Add(image);
             }
 
