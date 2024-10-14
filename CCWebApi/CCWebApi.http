@@ -1,0 +1,6 @@
+@CCWebApi_HostAddress = http://localhost:5042
+
+GET {{CCWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

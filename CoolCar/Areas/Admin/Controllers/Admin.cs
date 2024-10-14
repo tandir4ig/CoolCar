@@ -28,20 +28,24 @@ namespace CoolCar.Areas.Admin.Controllers
             roleInterface = RolesStorage;
             this.imagesProvider = imagesProvider;
         }
+        [HttpGet("Index")]
         public IActionResult Index()
         {
             return View();
         }
+        [HttpGet]
         public IActionResult Orders()
         {
             var orders = orderStorage.GetOrders();
             return View(orders);
         }
+        [HttpGet]
         public IActionResult Roles()
         {
             var roles = roleInterface.GetAllRoles();
             return View(roles);
         }
+        [HttpGet]
         public IActionResult AddRole()
         {
             return View();
@@ -70,6 +74,7 @@ namespace CoolCar.Areas.Admin.Controllers
             roleInterface.Remove(currentRole);
             return RedirectToAction("Roles");
         }
+        [HttpGet]
         public IActionResult Cars()
         {
             var cars = carsStorage.GetAll();
@@ -87,6 +92,7 @@ namespace CoolCar.Areas.Admin.Controllers
             }
             return View(carsViewModels);
         }
+        [HttpGet]
         public IActionResult DeleteCar(Guid carid)
         {
             var car = carsStorage.GetById(carid);
@@ -106,12 +112,15 @@ namespace CoolCar.Areas.Admin.Controllers
             carsStorage.Update(editCarViewModel.ToCar());
             return RedirectToAction("cars");
         }
+
+        [HttpGet]
         public IActionResult Edit(Guid carid)
         {
             Car car = carsStorage.GetById(carid);
             return View(car.ToEditCarViewModel());
         }
 
+        [HttpGet]
         public IActionResult AdminMenu()
         {
             return View();
@@ -130,6 +139,7 @@ namespace CoolCar.Areas.Admin.Controllers
             carsStorage.Add(car.ToCar(imagesPath));
             return RedirectToAction("Catalog", "Home");
         }
+        [HttpGet]
         public IActionResult Add()
         {
             return View();

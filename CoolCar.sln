@@ -8,7 +8,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoolCar", "CoolCar\CoolCar.
 		{9149BEFE-14E5-49AC-A443-3924CFBFEA82} = {9149BEFE-14E5-49AC-A443-3924CFBFEA82}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolCar.Db", "CoolCar.Db\CoolCar.Db.csproj", "{9149BEFE-14E5-49AC-A443-3924CFBFEA82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoolCar.Db", "CoolCar.Db\CoolCar.Db.csproj", "{9149BEFE-14E5-49AC-A443-3924CFBFEA82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppCoolCar", "WebAppCoolCar\WebAppCoolCar.csproj", "{70D348B0-C329-4EBE-A8B6-B2752BE83F22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{9149BEFE-14E5-49AC-A443-3924CFBFEA82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9149BEFE-14E5-49AC-A443-3924CFBFEA82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9149BEFE-14E5-49AC-A443-3924CFBFEA82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70D348B0-C329-4EBE-A8B6-B2752BE83F22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70D348B0-C329-4EBE-A8B6-B2752BE83F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70D348B0-C329-4EBE-A8B6-B2752BE83F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70D348B0-C329-4EBE-A8B6-B2752BE83F22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

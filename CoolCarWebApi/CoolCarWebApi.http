@@ -1,0 +1,6 @@
+@CoolCarWebApi_HostAddress = http://localhost:5027
+
+GET {{CoolCarWebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
