@@ -9,6 +9,7 @@ namespace CoolCar.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Enter(Register user)
         {
@@ -18,10 +19,12 @@ namespace CoolCar.Controllers
             }
             return RedirectToAction("index","Authorization");
         }
+
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult AddNewUser(Register user)
         {
