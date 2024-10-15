@@ -21,7 +21,7 @@ namespace CoolCar.Controllers
         }
 
         [HttpGet("Catalog")]
-        public IActionResult Catalog()
+        public async Task<List<CarViewModel>> Catalog()
         {
             var CarsDb = _carsDatabase.GetAll();
             List<CarViewModel> Cars = new List<CarViewModel>();
@@ -40,14 +40,14 @@ namespace CoolCar.Controllers
                 };
                 Cars.Add(carViewModel);
             }
-            return View((object)Cars);
+            return Cars;
         }
 
         [HttpGet("Car")]
-        public IActionResult Car(Guid id)
+        public async Task<CarViewModel> Car(Guid id)
         {
             var car = _carsDatabase.GetById(id);
-            return View(Mapper.Car_to_CarViewModel(car));
+            return Mapper.Car_to_CarViewModel(car);
         }
 
         [HttpPost]
