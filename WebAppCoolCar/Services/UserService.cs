@@ -13,7 +13,7 @@ namespace WebAppCoolCar.Services
         }
         public bool IsValidUserInformationForRegister(RegUser registeringUser, UserManager<User> userManager)
         {
-            var user = new User { UserName = registeringUser.UserName, Email = registeringUser.Email, PhoneNumber = registeringUser.Phone };
+            var user = new User { UserName = registeringUser.Email, Email = registeringUser.Email, PhoneNumber = registeringUser.Phone };
             var result = userManager.CreateAsync(user, registeringUser.Password).Result;
             return result.Succeeded;
         }

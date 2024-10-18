@@ -7,6 +7,6 @@ namespace WebAppCoolCar.Services.Interfaces
     public interface IUserService
     {
         bool IsValidUserInformationForAuth(LoginModel model, SignInManager<User> signInManager);
-        bool IsValidUserInformationForRegister(LoginModel model, UserManager<User> userManager);
+        bool IsValidUserInformationForRegister(RegUser model, UserManager<User> userManager);
     }
 }

@@ -9,6 +9,10 @@ using CoolCar.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using WebAppCoolCar.Models;
 using WebAppCoolCar.Services;
 using WebAppCoolCar.Services.Interfaces;
@@ -23,30 +27,19 @@ namespace WebAppCoolCar.Controllers
         private readonly IUserService userService;
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
+        private readonly IConfiguration configuration;
 
-        public HomeController(ICarsStorage carsDatabase, IUserService userService, SignInManager<User> signInManager, UserManager<User> userManager)
+        public HomeController(ICarsStorage carsDatabase, IUserService userService, SignInManager<User> signInManager, UserManager<User> userManager, IConfiguration configuration)
         {
             _carsDatabase = carsDatabase;
             this.userService = userService;
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.configuration = configuration;
         }
-
-        [AllowAnonymous]
-        [HttpPost("Auth")]
-        public IActionResult Auth([FromBody] LoginModel user)
-        {
-            bool isValid = userService.IsValidUserInformation(user, signInManager);
-            if (isValid)
-            {
-                var tokenString = GenerateJwtToken(user.Name);
-                return Ok(new {Token = tokenString, Message = "Success"});
-            }
-            return BadRequest("Please pass the valid Username and Password");
-        }
-
 
         [HttpGet("Catalog")]
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         public async Task<List<CarViewModel>> Catalog()
         {
             var CarsDb = _carsDatabase.GetAll();
@@ -87,5 +80,8 @@ namespace WebAppCoolCar.Controllers
             }
             return null;
         }
+
+        //Generation JWT toker after successful login.
+
     }
 }

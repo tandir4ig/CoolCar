@@ -11,12 +11,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebAppCoolCar.Services.Interfaces;
-using WebAppCoolCar.Services; //body
+using WebAppCoolCar.Services;
+using WebAppCoolCar.Middleware; //body
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<ICardsStorage, CardsDbRepository>();
@@ -98,6 +101,7 @@ using (var serviceScope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<JWTMiddleware>();
 
 app.UseAuthorization();
 app.UseAuthentication();
